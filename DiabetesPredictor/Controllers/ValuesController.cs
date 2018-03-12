@@ -13,7 +13,17 @@ namespace DiabetesPredictor.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            // host python and execute script
+            var engine = IronPython.Hosting.Python.CreateEngine();
+            var scope = engine.CreateScope();
+            engine.ExecuteFile(@"Naive-BayesPredictor.py", scope);
+
+            // get function and dynamically invoke
+            var defaultMethod = scope.GetVariable("default");
+            var result = defaultMethod();
+
+            return new string[] { result };
         }
 
         // GET api/values/5

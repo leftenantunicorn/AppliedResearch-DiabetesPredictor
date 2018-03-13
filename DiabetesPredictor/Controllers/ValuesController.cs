@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,14 +15,21 @@ namespace DiabetesPredictor.Controllers
         public IEnumerable<string> Get()
         {
 
+            double[] record = new double[] { 6 , 148, 72, 35, 0, 33.6, 0.627, 50 };
+
             // host python and execute script
             var engine = IronPython.Hosting.Python.CreateEngine();
             var scope = engine.CreateScope();
-            engine.ExecuteFile(@"Naive-BayesPredictor.py", scope);
+
+            var paths = engine.GetSearchPaths();
+            paths.Add(@"C:\Users\Erin\Miniconda3\Lib\site-packages");
+            engine.SetSearchPaths(paths);
+
+            engine.ExecuteFile(@"python/Naive-BayesPredictor.py", scope);
 
             // get function and dynamically invoke
-            var defaultMethod = scope.GetVariable("default");
-            var result = defaultMethod();
+            var predict = scope.GetVariable("predictSingleRecord");
+            var result = predict(record);
 
             return new string[] { result };
         }

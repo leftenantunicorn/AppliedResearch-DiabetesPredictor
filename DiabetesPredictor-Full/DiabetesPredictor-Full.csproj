@@ -54,7 +54,7 @@
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Python.Runtime, Version=2.3.0.0, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="Python.Runtime, Version=2.3.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Anaconda3\Lib\site-packages\Python.Runtime.dll</HintPath>
     </Reference>
@@ -112,7 +112,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\PredictorPy\PredictorPy-NB.py">
+      <Link>python\PredictorPy-NB.py</Link>
+    </Content>
     <Content Include="Global.asax" />
+    <Content Include="python\test.py" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="python\pima-data.csv" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

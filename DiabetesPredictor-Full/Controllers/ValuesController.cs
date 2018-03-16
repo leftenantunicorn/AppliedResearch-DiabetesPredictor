@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Web.Http;
 using Python.Runtime;
 
@@ -12,27 +15,28 @@ namespace DiabetesPredictor.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var path = $"{Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine)};{@"C:\Users\Erin\Anaconda3\"}";
+            string result;
 
-            Environment.SetEnvironmentVariable("Path", path, EnvironmentVariableTarget.Process);
+            string fileName = "test.py";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", fileName);
 
-            //PythonEngine.PythonHome = @"C:\Users\Erin\Anaconda3\";
-            //PythonEngine.Initialize();
-            string result = "defualt";
 
-            using (Py.GIL())
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = @"C:\Users\bradleye\Anaconda3\python.exe";
+            var args = new string[] {"arg1","arg2"};
+            start.Arguments = string.Format("{0} {1}", path, args);
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
             {
-                dynamic np = Py.Import("numpy");
-                Console.WriteLine(np.cos(np.pi * 2));
-
-                dynamic sin = np.sin;
-                Console.WriteLine(sin(5));
-
-                double c = np.cos(5) + sin(5);
-                Console.WriteLine(c);
-                result = c.ToString();
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    result = reader.ReadToEnd();
+                }
             }
+
             return new string[] { result };
+
         }
 
         // GET api/values/5

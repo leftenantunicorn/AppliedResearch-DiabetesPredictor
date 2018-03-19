@@ -1,62 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace DiabetesPredictor.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController : ApiController
     {
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-
-            double[] record = new double[] { 6 , 148, 72, 35, 0, 33.6, 0.627, 50 };
-
-            // host python and execute script
-            var engine = IronPython.Hosting.Python.CreateEngine();
-            var scope = engine.CreateScope();
-
-            var paths = engine.GetSearchPaths();
-            paths.Add(@"C:\Users\Erin\Miniconda3\Lib\site-packages");
-            engine.SetSearchPaths(paths);
-
-            engine.ExecuteFile(@"python/Naive-BayesPredictor.py", scope);
-
-            // get function and dynamically invoke
-            var predict = scope.GetVariable("predictSingleRecord");
-            var result = predict(record);
-
-            return new string[] { result };
-        }
-
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost()]
+        public string Post([FromBody] DiabetesRecord modelRecord)
         {
-            return "value";
+            string result;
+
+            string fileName = "bayespredictortwo.py";
+            string dataName = "pima-data.csv";
+            string pathPy = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", fileName);
+            string pathCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", dataName);
+
+
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = @"C:\Users\bradleye\Anaconda3\python.exe";
+            var record = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", modelRecord.num_preg, modelRecord.glucose_conc, modelRecord.diastolic_bp,
+                modelRecord.thickness, modelRecord.insulin, modelRecord.bmi, modelRecord.diab_pred, modelRecord.age);
+            start.Arguments = string.Format("{0} {1} {2}", pathPy, pathCsv, record);
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return result;
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+    }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    public class DiabetesRecord
+    {
+        public Double num_preg { get; set; }
+        public Double glucose_conc { get; set; }
+        public Double diastolic_bp { get; set; }
+        public Double thickness { get; set; }
+        public Double insulin { get; set; }
+        public Double bmi { get; set; }
+        public Double diab_pred { get; set; }
+        public Double age { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace DiabetesPredictor.Controllers
     [System.Web.Mvc.Route("api/[controller]")]
     public class ValuesController : ApiController
     {
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        // GET api/values/5
+        [HttpGet()]
+        public string Get(DiabetesRecord modelRecord)
         {
             string result;
 
@@ -25,7 +25,8 @@ namespace DiabetesPredictor.Controllers
 
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = @"C:\Users\bradleye\Anaconda3\python.exe";
-            var record = "100,100,100,100,100,100,100,100";
+            var record = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", modelRecord.num_preg, modelRecord.glucose_conc, modelRecord.diastolic_bp,
+                modelRecord.thickness, modelRecord.insulin, modelRecord.bmi, modelRecord.diab_pred, modelRecord.age);
             start.Arguments = string.Format("{0} {1} {2}", pathPy, pathCsv, record);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
@@ -38,33 +39,20 @@ namespace DiabetesPredictor.Controllers
                 }
             }
 
-            return new string[] { result };
-
+            return result;
         }
 
-        // GET api/values/5
-        [HttpGet()]
-        public string Get(int id)
-        {
-            return "value";
-        }
+    }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut()]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete()]
-        public void Delete(int id)
-        {
-        }
+    public class DiabetesRecord
+    {
+        public Double num_preg { get; set; }
+        public Double glucose_conc { get; set; }
+        public Double diastolic_bp { get; set; }
+        public Double thickness { get; set; }
+        public Double insulin { get; set; }
+        public Double bmi { get; set; }
+        public Double diab_pred { get; set; }
+        public Double age { get; set; }
     }
 }

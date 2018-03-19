@@ -17,20 +17,23 @@ namespace DiabetesPredictor.Controllers
         {
             string result;
 
-            string fileName = "test.py";
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", fileName);
+            string fileName = "bayespredictortwo.py";
+            string dataName = "pima-data.csv";
+            string pathPy = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", fileName);
+            string pathCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", dataName);
 
 
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = @"C:\Users\bradleye\Anaconda3\python.exe";
-            var args = new string[] {"arg1","arg2"};
-            start.Arguments = string.Format("{0} {1}", path, args);
+            var record = "100,100,100,100,100,100,100,100";
+            start.Arguments = string.Format("{0} {1} {2}", pathPy, pathCsv, record);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
             {
                 using (StreamReader reader = process.StandardOutput)
                 {
+
                     result = reader.ReadToEnd();
                 }
             }

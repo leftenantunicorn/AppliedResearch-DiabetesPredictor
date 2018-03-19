@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>52502ea9-7cfd-4643-a671-1ac4b55a41d3</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PredictorPy-NB.py</StartupFile>
+    <StartupFile>bayespredictor.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PredictorPy-NB.py" />
+    <Compile Include="bayespredictor.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="pima-data.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

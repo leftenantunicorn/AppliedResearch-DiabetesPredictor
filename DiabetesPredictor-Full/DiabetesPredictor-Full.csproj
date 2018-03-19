@@ -112,11 +112,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\PredictorPy\PredictorPy-NB.py">
-      <Link>python\PredictorPy-NB.py</Link>
-    </Content>
     <Content Include="Global.asax" />
-    <Content Include="python\test.py" />
+    <Content Include="python\bayespredictortwo.py" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

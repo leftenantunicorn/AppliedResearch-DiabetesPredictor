@@ -28,9 +28,7 @@ namespace DiabetesPredictor.Controllers
 
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = @"C:\Users\bradleye\Anaconda3\python.exe";
-            //string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", modelRecord.num_preg, modelRecord.glucose_conc, modelRecord.diastolic_bp,
-            //    modelRecord.thickness, modelRecord.insulin, modelRecord.bmi, modelRecord.diab_pred, modelRecord.age);
-            start.Arguments = string.Format("{0} {1} {2}", pathPy, pathCsv, modelRecord.ToString());
+            start.Arguments = string.Format("{0} {1} {2}", pathPy, pathCsv, modelRecord.PropertiesAsCsv());
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))

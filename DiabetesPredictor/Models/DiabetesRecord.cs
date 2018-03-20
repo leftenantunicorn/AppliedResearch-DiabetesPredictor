@@ -6,8 +6,8 @@ using System.Web;
 
 namespace DiabetesPredictor.Models
 {
-    public class DiabetesRecord
-{
+     public class DiabetesRecord
+    {
         public Double num_preg { get; set; }
         public Double glucose_conc { get; set; }
         public Double diastolic_bp { get; set; }
@@ -17,9 +17,9 @@ namespace DiabetesPredictor.Models
         public Double diab_pred { get; set; }
         public Double age { get; set; }
 
-    public override string ToString()
-    {
-        return string.Join(", ", this.GetType().GetProperties().Select(x => x.GetValue(this)));
+        public String PropertiesAsCsv()
+        {
+              return string.Join(",", this.GetType().GetProperties().Select(x => x.GetValue(this)));
+        }
     }
-}
 }

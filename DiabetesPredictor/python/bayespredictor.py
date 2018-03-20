@@ -7,9 +7,10 @@ try:
     import numpy as np
     import pandas as pd
     from decimal import Decimal
+    import traceback
 
     df = pd.read_csv(sys.argv[1])
-
+    
     X_single = [Decimal(n) for n in sys.argv[2].split(",")];
 
     # In[11]:
@@ -54,7 +55,8 @@ try:
     # In[25]:
     probabilityOfDiabetes = nb_model.predict_proba(X_single)[0][1]
 
-    print(probabilityOfDiabetes * 100)
+    print(round(probabilityOfDiabetes,2) * 100,end="")
 
 except Exception as e:
-    print ("Unexpected error:", format(e))
+    print ("Unexpected error:", format(e) )
+    print ("More:", traceback.format_exc() )

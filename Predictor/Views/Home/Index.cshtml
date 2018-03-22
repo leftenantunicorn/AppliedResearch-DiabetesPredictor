@@ -1,65 +1,92 @@
-﻿<div class="row col-sm-12">
-<div class="row col-sm-6">
-    <h2>Enter a Record:</h2>
-    <form class="form-horizontal">
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Number of Pregnancies:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="num_preg">
-            </div>
-        </div>
+﻿@section Styles {
+    <style>
+        input { max-width: 80%; }
+        .row { display: -webkit-box; display: -webkit-flex;display: -ms-flexbox;display: flex; flex-wrap: wrap;}
+        .parent { margin: auto; display: flex; max-height: 80%; max-width: 80%;}
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Glucose Concentration:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="glucose_conc">
-            </div>
-        </div>
+        @@media screen and (max-width: 991px) {
+            .child {margin: auto; /* Magic! */min-height: 100%; min-width: 100%;}
+            .row > [class*='col-'] {display: flex;flex-direction: column; margin-left: auto;margin-right: auto;}
+        }
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Diasotolic Blood Pressure:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="diastolic_bp">
-            </div>
-        </div>
+        @@media screen and (min-width: 992px) {
+            .child {margin: auto; /* Magic! */min-height: 50%;min-width: 50%;}
+            .row > [class*='col-'] {display: flex;flex-direction: column;}
+        }
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Thickness:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="thickness">
-            </div>
-        </div>
+        @@keyframes blink {
+            0% {opacity: 0.71;}
+            50% {opacity: 0.15;}
+            100% {opacity: 0.71;}
+        }
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Insulin:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="insulin">
-            </div>
-        </div>
+        .loading {animation: blink 2s;animation-iteration-count: infinite}
+    </style>
+}
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Body Mass Index:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="bmi">
+<div class="row col-sm-12">
+    <div class="row col-sm-6">
+        <h2>Enter a Record:</h2>
+        <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Number of Pregnancies:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="num_preg">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Diabetes Pedigree Function:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="diab_pred">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Glucose Concentration:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="glucose_conc">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group form-group-sm">
-            <label class="col-sm-5 control-label">Age:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" name="age">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Diasotolic Blood Pressure:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="diastolic_bp">
+                </div>
             </div>
-        </div>
-    </form>
-    <button type="button" id="predict">Predict Me!</button>
-</div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Thickness:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="thickness">
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Insulin:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="insulin">
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Body Mass Index:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="bmi">
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Diabetes Pedigree Function:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="diab_pred">
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-5 control-label">Age:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="age">
+                </div>
+            </div>
+        </form>
+        <button type="button" id="predictresult">Predict</button>
+        <button type="button" id="newpredict" hidden="true">New Precidction</button>
+    </div>
 
 <div class="row col-sm-6">
     <h2 class="col-xs-12">Diabetic Risk:</h2>
@@ -72,8 +99,9 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $("#predict").click(function (e) {
+        $("#predictresult").click(function (e) {
             e.preventDefault();
+            $("#outcome-img").addClass("loading").attr("src", '@Url.Content("~/images/gray.png")');
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -98,14 +126,35 @@
                             $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
                             break;
                         default:
-                            $("#outcome").load(URL);
                             $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
                     }
+
+                    $('.form-control').each(function() {
+                        $(this).attr('readonly', true);
+                    });
+
+                    $("#predictresult").attr('hidden', true);
+                    $("#newpredict").attr('hidden', false);
                 },
                 error: function (result) {
                     alert('There was an error processing your request.');
+                },
+                complete: function() {
+                    $('#outcome-img').removeClass("loading");
                 }
             });
+        });
+
+        $("#newpredict").click(function (e) {
+            e.preventDefault();
+
+            $('.form-control').each(function() {
+                $(this).attr('readonly', false);
+                $(this).val("");
+            });
+
+            $("#newpredict").attr('hidden', true);
+            $("#predictresult").attr('hidden', false);
         });
     </script>
 }

@@ -6,6 +6,52 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        input {
+            max-width: 80%;
+        }
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display:  flex;
+            flex-wrap: wrap;
+        }
+        .parent {
+            margin: auto;
+            display: flex;
+            max-height: 80%;
+            max-width: 80%;
+        }
+
+        @@media screen and (max-width: 991px) {
+            .child {
+                margin: auto; /* Magic! */
+                min-height: 100%;
+                min-width: 100%;
+            }
+
+            .row > [class*='col-'] {
+                display: flex;
+                flex-direction: column;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @@media screen and (min-width: 992px) {
+            .child {
+                margin: auto; /* Magic! */
+                min-height: 50%;
+                min-width: 50%;
+            }
+            .row > [class*='col-'] {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,12 +62,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Diabetes Predictor", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Swagger Help", "", "Swagger", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>
@@ -30,7 +77,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Diabetes Predictor</p>
         </footer>
     </div>
 

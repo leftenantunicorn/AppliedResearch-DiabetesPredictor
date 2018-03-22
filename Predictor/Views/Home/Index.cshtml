@@ -1,24 +1,111 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿<div class="row col-sm-12">
+<div class="row col-sm-6">
+    <h2>Enter a Record:</h2>
+    <form class="form-horizontal">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Number of Pregnancies:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="num_preg">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Glucose Concentration:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="glucose_conc">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Diasotolic Blood Pressure:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="diastolic_bp">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Thickness:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="thickness">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Insulin:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="insulin">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Body Mass Index:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="bmi">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Diabetes Pedigree Function:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="diab_pred">
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-5 control-label">Age:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="age">
+            </div>
+        </div>
+    </form>
+    <button type="button" id="predict">Predict Me!</button>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+
+<div class="row col-sm-6">
+    <h2 class="col-xs-12">Diabetic Risk:</h2>
+    <div id="outcome" class="parent col-xs-12">
+        <img src="~/images/gray.png" style="" id="outcome-img"  class="child"/>
     </div>
 </div>
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("#predict").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: '@Url.Action("values","api")',
+                data: JSON.stringify({
+                    "num_preg": $("input[name='num_preg']").val(),
+                    "glucose_conc": $("input[name='glucose_conc']").val(),
+                    "diastolic_bp": $("input[name='diastolic_bp']").val(),
+                    "thickness": $("input[name='thickness']").val(),
+                    "insulin": $("input[name='insulin']").val(),
+                    "bmi": $("input[name='bmi']").val(),
+                    "diab_pred": $("input[name='diab_pred']").val(),
+                    "age": $("input[name='age']").val()
+                }),
+                success: function (result) {
+                    var probability = parseFloat(result);
+                    switch (true) {
+                        case (probability < 50):
+                            $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
+                            break;
+                        case (probability < 90):
+                            $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
+                            break;
+                        default:
+                            $("#outcome").load(URL);
+                            $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
+                    }
+                },
+                error: function (result) {
+                    alert('There was an error processing your request.');
+                }
+            });
+        });
+    </script>
+}

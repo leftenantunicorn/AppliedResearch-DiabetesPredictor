@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,18 +8,41 @@ namespace Predictor.Models
 {
     public class DiabetesRecord
     {
-        public Double num_preg { get; set; }
-        public Double glucose_conc { get; set; }
-        public Double diastolic_bp { get; set; }
-        public Double thickness { get; set; }
-        public Double insulin { get; set; }
-        public Double bmi { get; set; }
-        public Double diab_pred { get; set; }
-        public Double age { get; set; }
+        [Required]
+        [Display(Name="Number of Pregnancies:")]
+        public double num_preg { get; set; }
+        [Required]
+        [Display(Name = "Glucose Concentration:")]
+        public double glucose_conc { get; set; }
+        [Required]
+        [Display(Name = "Diastolic Blood Pressure:")]
+        public double diastolic_bp { get; set; }
+        [Required]
+        [Display(Name = "Thickness:")]
+        public double thickness { get; set; }
+        [Required]
+        [Display(Name = "Insulin:")]
+        public double insulin { get; set; }
+        [Required]
+        [Display(Name = "Bpdy Mass Index:")]
+        public double bmi { get; set; }
+        [Required]
+        [Display(Name = "Diabetes Pedigree Function:")]
+        public double diab_pred { get; set; }
+        [Required]
+        [Display(Name = "Age:")]
+        public double age { get; set; }
 
         public String PropertiesAsCsv()
         {
-            return string.Join(",", this.GetType().GetProperties().Select(x => x.GetValue(this)));
+            return string.Join(",", this.GetType().GetProperties().Where(x => x.GetValue(this) != null).Select(x => x.GetValue(this)));
         }
+    }
+
+    public class DiabetesOutcome : DiabetesRecord
+    {
+        [Required]
+        [Display(Name = "Is this patient diabetic:")]
+        public int? outcome { get; set; }
     }
 }

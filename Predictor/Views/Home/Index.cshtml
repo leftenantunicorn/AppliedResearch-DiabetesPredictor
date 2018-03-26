@@ -1,4 +1,6 @@
-﻿@section Styles {
+﻿@model Predictor.Models.DiabetesRecord
+
+@section Styles {
     <style>
         input { max-width: 80%; }
         .row { display: -webkit-box; display: -webkit-flex;display: -ms-flexbox;display: flex; flex-wrap: wrap;}
@@ -27,65 +29,78 @@
 <div class="row col-sm-12">
     <div class="row col-sm-6">
         <h2>Enter a Record:</h2>
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="form">
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Number of Pregnancies:</label>
+                @Html.LabelFor(model => model.num_preg, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="num_preg">
+                    @Html.TextBoxFor(model => model.num_preg, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Glucose Concentration:</label>
+                @Html.LabelFor(model => model.glucose_conc, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="glucose_conc">
+                    @Html.TextBoxFor(model => model.glucose_conc, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Diasotolic Blood Pressure:</label>
+                @Html.LabelFor(model => model.diastolic_bp, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="diastolic_bp">
+                    @Html.TextBoxFor(model => model.diastolic_bp, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Thickness:</label>
+                @Html.LabelFor(model => model.thickness, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="thickness">
+                    @Html.TextBoxFor(model => model.thickness, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Insulin:</label>
+                @Html.LabelFor(model => model.insulin, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="insulin">
+                    @Html.TextBoxFor(model => model.insulin, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Body Mass Index:</label>
+                @Html.LabelFor(model => model.bmi, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="bmi">
+                    @Html.TextBoxFor(model => model.bmi, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Diabetes Pedigree Function:</label>
+                @Html.LabelFor(model => model.diab_pred, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="diab_pred">
+                    @Html.TextBoxFor(model => model.diab_pred, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
-                <label class="col-sm-5 control-label">Age:</label>
+                @Html.LabelFor(model => model.age, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="age">
+                    @Html.TextBoxFor(model => model.age, new { @class = "form-control" })
                 </div>
             </div>
-        </form>
+            
+            <div class="form-group form-group-sm checkbox" style="margin-bottom:20px">
+                <label>
+                    <input type="checkbox" id="add" /> Add this record to the training model?
+                </label>
+            </div>
+            <div class="form-group form-group-sm" hidden id="outcome">
+                @Html.LabelFor(model => model.outcome, new { @class = "col-sm-5 control-label" })
+                <div class="col-sm-7">
+                    @Html.CheckBoxFor(model => model.outcome, new { @class = "form-control" })
+                </div>
+            </div>
+</form>
         <button type="button" id="predictresult">Predict</button>
-        <button type="button" id="newpredict" hidden="true">New Precidction</button>
+        <button type="button" id="newpredict" hidden>New Precidction</button>
+        <button type="button" id="addToTrain" hidden>Add</button>
     </div>
 
 <div class="row col-sm-6">
@@ -99,44 +114,42 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $("#predictresult").click(function (e) {
+        $("#predictresult").click(function(e) {
             e.preventDefault();
+
+            var data = $('#form').serializeArray().reduce((obj, item) => {
+                    obj[item.name] = item.value;
+                    return obj;
+                },
+                {});
+
             $("#outcome-img").addClass("loading").attr("src", '@Url.Content("~/images/gray.png")');
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: '@Url.Action("values","api")',
-                data: JSON.stringify({
-                    "num_preg": $("input[name='num_preg']").val(),
-                    "glucose_conc": $("input[name='glucose_conc']").val(),
-                    "diastolic_bp": $("input[name='diastolic_bp']").val(),
-                    "thickness": $("input[name='thickness']").val(),
-                    "insulin": $("input[name='insulin']").val(),
-                    "bmi": $("input[name='bmi']").val(),
-                    "diab_pred": $("input[name='diab_pred']").val(),
-                    "age": $("input[name='age']").val()
-                }),
-                success: function (result) {
+                url: '@Url.Action("prediction", "api")',
+                data: JSON.stringify(data),
+                success: function(result) {
                     var probability = parseFloat(result);
                     switch (true) {
-                        case (probability < 50):
-                            $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
-                            break;
-                        case (probability < 90):
-                            $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
-                            break;
-                        default:
-                            $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
+                    case (probability < 50):
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
+                        break;
+                    case (probability < 90):
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
+                        break;
+                    default:
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
                     }
 
                     $('.form-control').each(function() {
                         $(this).attr('readonly', true);
                     });
 
-                    $("#predictresult").attr('hidden', true);
-                    $("#newpredict").attr('hidden', false);
+                    $("#predictresult").toggle();
+                    $("#newpredict").toggle();
                 },
-                error: function (result) {
+                error: function(result) {
                     alert('There was an error processing your request.');
                 },
                 complete: function() {
@@ -145,16 +158,65 @@
             });
         });
 
-        $("#newpredict").click(function (e) {
+        $("#add").change(() => {
+            $("#outcome").toggle();
+        });
+
+        $("#addToTrain").click(function(e) {
+            e.preventDefault();
+
+            var data = $('#form').serializeArray().reduce((obj, item) => {
+                    obj[item.name] = item.value;
+                    return obj;
+                },
+                {});
+
+            $("#outcome-img").addClass("loading").attr("src", '@Url.Content("~/images/gray.png")');
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: '@Url.Action("prediction", "api")',
+                data: JSON.stringify(data),
+                success: function(result) {
+                    var probability = parseFloat(result);
+                    switch (true) {
+                    case (probability < 50):
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
+                        break;
+                    case (probability < 90):
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
+                        break;
+                    default:
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
+                    }
+
+                    $('.form-control').each(function() {
+                        $(this).attr('readonly', true);
+                    });
+
+                    $("#predictresult").toggle();
+                    $("#newpredict").toggle();
+                },
+                error: function(result) {
+                    alert('There was an error processing your request.');
+                },
+                complete: function() {
+                    $('#outcome-img').removeClass("loading");
+                }
+            });
+        });
+
+        $("#newpredict").click(function(e) {
             e.preventDefault();
 
             $('.form-control').each(function() {
                 $(this).attr('readonly', false);
-                $(this).val("");
+                $(this).val("0");
             });
 
-            $("#newpredict").attr('hidden', true);
-            $("#predictresult").attr('hidden', false);
+            $("#newpredict").toggle();
+            $("#predictresult").toggle();
+            $("#outcome-img").attr("src", '@Url.Content("~/images/gray.png")');
         });
     </script>
 }

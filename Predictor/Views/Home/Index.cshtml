@@ -111,8 +111,32 @@
     </div>
 </form>
 
+<div class="row col-sm-12" id="thing">
+    <button type="button" id="butt" name="predict">Model Data</button>
+</div>
+
 @section Scripts {
     <script type="text/javascript">
+        $("#butt").click(function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: '@Url.Action("model/data", "api")',
+                data: JSON.stringify(data),
+                success: function (result) {
+                    alert();
+                    $(this).html(result);
+                },
+                error: function(result) {
+                    alert('There was an error processing your request.');
+                },
+                complete: function() {
+                }
+            });
+        });
+
+
+
         $("#predictresult").click(function(e) {
             e.preventDefault();
 
@@ -134,16 +158,16 @@
                     $("#desc-small").html("");
                     switch (true) {
                     case (probability < 50):
-                            $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
-                            $("#desc-big").html("You are at <strong>low</strong> risk.  ");
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
+                        $("#desc-big").html("You are at <strong>low</strong> risk.  ");
                         break;
                     case (probability < 90):
-                            $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
-                            $("#desc-big").html("You are at <strong>moderate</strong> risk.  ");
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
+                        $("#desc-big").html("You are at <strong>moderate</strong> risk.  ");
                         break;
                     default:
-                            $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
-                            $("#desc-big").html("You are at <strong>high</strong> risk.  ");
+                        $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
+                        $("#desc-big").html("You are at <strong>high</strong> risk.  ");
                     }
 
                     $("#desc-small").append("Your probability of having diabetes is " + result + ".");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,12 +13,14 @@ namespace Predictor.Helpers
     {
         public static string ExecutePythonScript(string fileName, string dataName, params string[] args)
         {
+            var pythonInstallationLocation = ConfigurationManager.AppSettings["pythonPath"];
+
             string result;
             string pathPy = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", fileName);
             string pathCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", dataName);
 
             ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = @"C:\Users\Erin\Anaconda3\python.exe";
+            start.FileName = pythonInstallationLocation;
             var argumentsBuilder = new StringBuilder().AppendFormat("{0} {1}", pathPy, pathCsv);
             foreach (string arg in args)
             {

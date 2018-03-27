@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Predictor.Helpers;
 
 namespace Predictor.Controllers
 {
@@ -22,6 +23,18 @@ namespace Predictor.Controllers
         public IEnumerable<string> GetSpecificity()
         {
             return new string[] { "value3", "value4" };
+        }
+
+        [HttpGet()]
+        [Route("data")]
+        public IEnumerable<string> GetData()
+        {
+            string fileName = "bayesModelData.py";
+            string dataName = "pima-data.csv";
+
+            var thing =  PythonScriptHelpers.ExecutePythonScript(fileName, dataName);
+
+            return thing.Split(',');
         }
 
         // POST api/<controller>

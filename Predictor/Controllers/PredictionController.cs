@@ -26,14 +26,15 @@ namespace Predictor.Controllers
 
         [Route("trainingset")]
         [HttpPost()]
-        public bool PostToTrainingSet([FromBody] DiabetesRecord modelRecord)
+        public bool PostToTrainingSet([FromBody] DiabetesOutcomeRecord modelRecord)
         {
             string dataName = "pima-data-test.csv";
+            string pathCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", dataName);
 
-            if (File.Exists(dataName)) File.AppendAllText(dataName, Environment.NewLine + modelRecord.PropertiesAsCsv());
+            if (File.Exists(pathCsv)) File.AppendAllText(pathCsv, Environment.NewLine + modelRecord.PropertiesAsCsv());
             else return false;
 
             return true;
-    }
+        }
     }
 }

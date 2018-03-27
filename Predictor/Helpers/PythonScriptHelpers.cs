@@ -17,7 +17,7 @@ namespace Predictor.Helpers
             string pathCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", dataName);
 
             ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = @"C:\Users\bradleye\Anaconda3\python.exe";
+            start.FileName = @"C:\Users\Erin\Anaconda3\python.exe";
             var argumentsBuilder = new StringBuilder().AppendFormat("{0} {1}", pathPy, pathCsv);
             foreach (string arg in args)
             {

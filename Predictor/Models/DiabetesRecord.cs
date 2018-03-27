@@ -8,41 +8,42 @@ namespace Predictor.Models
 {
     public class DiabetesRecord
     {
-        [Required]
-        [Display(Name="Number of Pregnancies:")]
+        [Order(1)]
         public double num_preg { get; set; }
-        [Required]
-        [Display(Name = "Glucose Concentration:")]
+        [Order(2)]
         public double glucose_conc { get; set; }
-        [Required]
-        [Display(Name = "Diastolic Blood Pressure:")]
+        [Order(3)]
         public double diastolic_bp { get; set; }
-        [Required]
-        [Display(Name = "Thickness:")]
+        [Order(4)]
         public double thickness { get; set; }
-        [Required]
-        [Display(Name = "Insulin:")]
+        [Order(5)]
         public double insulin { get; set; }
-        [Required]
-        [Display(Name = "Bpdy Mass Index:")]
+        [Order(6)]
         public double bmi { get; set; }
-        [Required]
-        [Display(Name = "Diabetes Pedigree Function:")]
+        [Order(7)]
         public double diab_pred { get; set; }
-        [Required]
-        [Display(Name = "Age:")]
+        [Order(8)]
         public double age { get; set; }
 
         public String PropertiesAsCsv()
         {
-            return string.Join(",", this.GetType().GetProperties().Where(x => x.GetValue(this) != null).Select(x => x.GetValue(this)));
+            var sortedProperties = this.GetType().GetProperties().OrderBy(x => (x.GetCustomAttributes(typeof(Order), true).Single() as Order).OrderNumber);
+            return string.Join(",", sortedProperties.Select(x => x.GetValue(this)));
         }
     }
 
-    public class DiabetesOutcome : DiabetesRecord
+    public class DiabetesOutcomeRecord : DiabetesRecord
     {
-        [Required]
-        [Display(Name = "Is this patient diabetic:")]
-        public int? outcome { get; set; }
+        [Order(9)]
+        public int outcome { get; set; }
+    }
+
+    public class Order : Attribute
+    {
+        public Order(int number)
+        {
+            OrderNumber = number;
+        }
+        public int OrderNumber { get; set; }
     }
 }

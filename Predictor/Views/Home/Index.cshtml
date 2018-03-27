@@ -1,35 +1,11 @@
-﻿@model Predictor.Models.DiabetesRecord
+﻿@model Predictor.Models.DiabetesRecordViewModel
 
-@section Styles {
-    <style>
-        input { max-width: 80%; }
-        .row { display: -webkit-box; display: -webkit-flex;display: -ms-flexbox;display: flex; flex-wrap: wrap;}
-        .parent { margin: auto; display: flex; max-height: 80%; max-width: 80%;}
+<form class="form-horizontal" id="form">
+    <div class="row col-sm-12">
 
-        @@media screen and (max-width: 991px) {
-            .child {margin: auto; /* Magic! */min-height: 100%; min-width: 100%;}
-            .row > [class*='col-'] {display: flex;flex-direction: column; margin-left: auto;margin-right: auto;}
-        }
-
-        @@media screen and (min-width: 992px) {
-            .child {margin: auto; /* Magic! */min-height: 50%;min-width: 50%;}
-            .row > [class*='col-'] {display: flex;flex-direction: column;}
-        }
-
-        @@keyframes blink {
-            0% {opacity: 0.71;}
-            50% {opacity: 0.15;}
-            100% {opacity: 0.71;}
-        }
-
-        .loading {animation: blink 2s;animation-iteration-count: infinite}
-    </style>
-}
-
-<div class="row col-sm-12">
-    <div class="row col-sm-6">
-        <h2>Enter a Record:</h2>
-        <form class="form-horizontal" id="form">
+        <div class="row col-sm-6">
+            <!-- Record Fields -->
+            <h2>Enter a Record:</h2>
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.num_preg, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
@@ -85,32 +61,55 @@
                     @Html.TextBoxFor(model => model.age, new { @class = "form-control" })
                 </div>
             </div>
-            
+
+        </div>
+
+        <div class="row col-sm-6">
+            <!-- Risk Section -->
+            <h2 class="col-xs-12">Diabetic Risk:</h2>
+            <div id="results" class="parent col-xs-12">
+                <div id="description">
+                    <h4 id="desc-big">&nbsp;</h4>
+                    <h5 id="desc-small">&nbsp;</h5>
+                </div>
+                <img src="~/images/gray.png" style="" id="outcome-img" class="child" />
+            </div>
+
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row col-sm-12">
+        <div class="row col-sm-6">
+            <!-- Training Section and Buttons -->
             <div class="form-group form-group-sm checkbox" style="margin-bottom:20px">
-                <label>
-                    <input type="checkbox" id="add" /> Add this record to the training model?
+                <label class="col-sm-12 control-label" style="padding-left:0px">
+                    <input type="checkbox" id="add" />Add this record to the training model?
                 </label>
             </div>
-            <div class="form-group form-group-sm" hidden id="outcome">
+
+            <div class="form-group form-group-sm" id="outcome" hidden>
                 @Html.LabelFor(model => model.outcome, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.CheckBoxFor(model => model.outcome, new { @class = "form-control" })
+                    @Html.RadioButtonFor(model => model.outcome, "1", new { id="yes"}) Yes
+                </div>
+                <div class="col-sm-7 col-md-12 col-md-push-5">
+                    @Html.RadioButtonFor(model => model.outcome, "0", new { id = "no", @checked = true }) No
                 </div>
             </div>
+
+            <div class="form-group form-group-sm" id="buttons">
+                <button type="button" id="predictresult" name="predict">Predict Risk</button>
+                <button type="button" id="addToTrain" name="add" disabled>Submit Training Data</button>
+                <button type="button" id="newpredict" name="clear" disabled>Clear</button>
+            </div>
+        </div>
+        <div class="row col-sm-6 parent" id="train-description">
+            <h4 class="child" id="desc-train">&nbsp</h4>
+        </div>
+    </div>
 </form>
-        <button type="button" id="predictresult">Predict</button>
-        <button type="button" id="newpredict" hidden>New Precidction</button>
-        <button type="button" id="addToTrain" hidden>Add</button>
-    </div>
-
-<div class="row col-sm-6">
-    <h2 class="col-xs-12">Diabetic Risk:</h2>
-    <div id="outcome" class="parent col-xs-12">
-        <img src="~/images/gray.png" style="" id="outcome-img"  class="child"/>
-    </div>
-</div>
-
-</div>
 
 @section Scripts {
     <script type="text/javascript">
@@ -131,23 +130,25 @@
                 data: JSON.stringify(data),
                 success: function(result) {
                     var probability = parseFloat(result);
+                    $("#desc-big").html("");
+                    $("#desc-small").html("");
                     switch (true) {
                     case (probability < 50):
-                        $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
+                            $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
+                            $("#desc-big").html("You are at <strong>low</strong> risk.  ");
                         break;
                     case (probability < 90):
-                        $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
+                            $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
+                            $("#desc-big").html("You are at <strong>moderate</strong> risk.  ");
                         break;
                     default:
-                        $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
+                            $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
+                            $("#desc-big").html("You are at <strong>high</strong> risk.  ");
                     }
 
-                    $('.form-control').each(function() {
-                        $(this).attr('readonly', true);
-                    });
+                    $("#desc-small").append("Your probability of having diabetes is " + result + ".");
 
-                    $("#predictresult").toggle();
-                    $("#newpredict").toggle();
+                    blockForm();
                 },
                 error: function(result) {
                     alert('There was an error processing your request.');
@@ -159,7 +160,14 @@
         });
 
         $("#add").change(() => {
-            $("#outcome").toggle();
+            if (document.getElementById("add").checked) {
+                $("#outcome").show();
+                toggleButtons("add");
+            }
+            else {
+                $("#outcome").hide();
+                toggleButtons("predict");
+            }
         });
 
         $("#addToTrain").click(function(e) {
@@ -171,37 +179,24 @@
                 },
                 {});
 
-            $("#outcome-img").addClass("loading").attr("src", '@Url.Content("~/images/gray.png")');
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: '@Url.Action("prediction", "api")',
+                url: '@Url.Action("prediction/trainingset", "api")',
                 data: JSON.stringify(data),
-                success: function(result) {
-                    var probability = parseFloat(result);
-                    switch (true) {
-                    case (probability < 50):
-                        $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
-                        break;
-                    case (probability < 90):
-                        $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
-                        break;
-                    default:
-                        $("#outcome-img").attr("src", '@Url.Content("~/images/red.png")');
-                    }
+                success: function (result) {
 
-                    $('.form-control').each(function() {
-                        $(this).attr('readonly', true);
-                    });
+                    $("#desc-train").html("");
 
-                    $("#predictresult").toggle();
-                    $("#newpredict").toggle();
+                    if (result) $("#desc-train").html("You data was successfully submitted.");
+                    else $("#desc-train").html("There was an error submitting your data. Please verify values.");
+
+                    blockForm();
                 },
                 error: function(result) {
                     alert('There was an error processing your request.');
                 },
                 complete: function() {
-                    $('#outcome-img').removeClass("loading");
                 }
             });
         });
@@ -209,14 +204,39 @@
         $("#newpredict").click(function(e) {
             e.preventDefault();
 
-            $('.form-control').each(function() {
-                $(this).attr('readonly', false);
-                $(this).val("0");
+            $('input').each(function() {
+                $(this).attr('disabled', false);
+                if ($(this).is(":text")) $(this).val("0");
             });
 
-            $("#newpredict").toggle();
-            $("#predictresult").toggle();
+            $("#no").click();
+
+            $(this).removeProp('checked');
+
+            if (document.getElementById("add").checked) { $("#add").click() };
+            $("#desc-big").html("&nbsp");
+            $("#desc-small").html("&nbsp");
+            $("#desc-train").html("&nbsp");
+
             $("#outcome-img").attr("src", '@Url.Content("~/images/gray.png")');
+
+            toggleButtons("predict");
         });
+
+        function toggleButtons(setActiveButton) {
+            $('button').each(function () {
+                if ($(this).attr('name') === setActiveButton) $(this).attr('disabled', false);
+                else $(this).attr('disabled', true);
+            });
+        }
+
+        function blockForm() {
+            $('input').each(function () {
+                $(this).attr('disabled', true);
+            });
+
+            toggleButtons("clear");
+        }
+
     </script>
 }

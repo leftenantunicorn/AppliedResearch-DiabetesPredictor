@@ -12,7 +12,7 @@ namespace Predictor.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View(new DiabetesRecord());
+            return View(new DiabetesRecordViewModel());
         }
     }
 }

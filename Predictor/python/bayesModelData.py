@@ -9,9 +9,11 @@ try:
     from sklearn.preprocessing import Imputer
     from sklearn.naive_bayes import GaussianNB
     from sklearn.cross_validation import train_test_split
-    from sklearn import metrics
+    from sklearn import svm
     import simplejson as json
     import os
+    from sklearn.preprocessing import binarize
+    from sklearn import metrics
 
     df = pd.read_csv(sys.argv[1])
 
@@ -32,7 +34,7 @@ try:
     x_test = fill_0.fit_transform(x_test)
 
     # Train model
-    nb_model = GaussianNB()
+    nb_model = GaussianNB(priors=[0.5, 0.5])
     nb_model.fit(x_train, y_train.ravel())
 
     # Report on accuracies

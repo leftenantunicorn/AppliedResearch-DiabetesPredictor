@@ -28,7 +28,7 @@ namespace Predictor.Controllers
         [HttpPost()]
         public bool PostToTrainingSet([FromBody] DiabetesOutcomeRecord modelRecord)
         {
-            string dataName = "pima-data-test.csv";
+            string dataName = "pima-data.csv";
             string pathCsv = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", dataName);
 
             if (File.Exists(pathCsv)) File.AppendAllText(pathCsv, Environment.NewLine + modelRecord.PropertiesAsCsv());

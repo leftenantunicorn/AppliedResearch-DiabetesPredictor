@@ -162,36 +162,40 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $("#metrics").addClass("loading2");
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: '@Url.Action("model/metrics", "api")',
-            success: function (result) {
-                var data = JSON.parse(result);
-                $("#header").html(data['conf']['true_neg']
-                    + data['conf']['true_pos']
-                    + data['conf']['false_neg']
-                    + data['conf']['false_pos']);
+        function refreshModelMetrics() {
+            $("#metrics").addClass("loading2");
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: '@Url.Action("model/metrics", "api")',
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    $("#header").html(data['conf']['true_neg'] +
+                        data['conf']['true_pos'] +
+                        data['conf']['false_neg'] +
+                        data['conf']['false_pos']);
 
-                $("#dataTN").html(data['conf']['true_neg']);
-                $("#dataTP").html(data['conf']['true_pos']);
-                $("#dataFN").html(data['conf']['false_neg']);
-                $("#dataFP").html(data['conf']['false_pos']);
+                    $("#dataTN").html(data['conf']['true_neg']);
+                    $("#dataTP").html(data['conf']['true_pos']);
+                    $("#dataFN").html(data['conf']['false_neg']);
+                    $("#dataFP").html(data['conf']['false_pos']);
 
-                $("#dataTN").val(data['conf']['true_neg']);
-                $("#sens").html("Sensitivity: " + data['sensitvity'] + "%");
-                $("#spec").html("Specificity: " + data['specificity'] + "%");
-                $("#prec").html("Precision: " + data['precision'] + "%");
-                $("#acc").html("Accuracy: " + data['accuracy'] + "%");
-            },
-            error: function(result) {
-                alert('There was an error processing your request.');
-            },
-            complete: function () {
-                $("#metrics").removeClass("loading2")
-            }
-        });
+                    $("#dataTN").val(data['conf']['true_neg']);
+                    $("#sens").html("Sensitivity: " + Math.round(data['sensitvity']) + "%");
+                    $("#spec").html("Specificity: " + Math.round(data['specificity']) + "%");
+                    $("#prec").html("Precision: " + Math.round(data['precision']) + "%");
+                    $("#acc").html("Accuracy: " + Math.round(data['accuracy']) + "%");
+                },
+                error: function(result) {
+                    alert('There was an error processing your request.');
+                },
+                complete: function() {
+                    $("#metrics").removeClass("loading2")
+                }
+            });
+        }
+
+        refreshModelMetrics();
 
         $("#predictresult").click(function(e) {
             e.preventDefault();
@@ -226,7 +230,7 @@
                         $("#desc-big").html("You are at <strong>high</strong> risk.  ");
                     }
 
-                    $("#desc-small").append("Your probability of having diabetes is " + result + ".");
+                    $("#desc-small").append("Your probability of having diabetes is " + result + "%.");
 
                     blockForm();
                 },
@@ -243,8 +247,7 @@
             if (document.getElementById("add").checked) {
                 $("#outcome").show();
                 toggleButtons("add");
-            }
-            else {
+            } else {
                 $("#outcome").hide();
                 toggleButtons("predict");
             }
@@ -264,12 +267,14 @@
                 contentType: "application/json",
                 url: '@Url.Action("prediction/trainingset", "api")',
                 data: JSON.stringify(data),
-                success: function (result) {
+                success: function(result) {
 
                     $("#desc-train").html("");
 
                     if (result) $("#desc-train").html("You data was successfully submitted.");
                     else $("#desc-train").html("There was an error submitting your data. Please verify values.");
+
+                    refreshModelMetrics();
 
                     blockForm();
                 },
@@ -293,7 +298,9 @@
 
             $(this).removeProp('checked');
 
-            if (document.getElementById("add").checked) { $("#add").click() };
+            if (document.getElementById("add").checked) {
+                $("#add").click()
+            };
             $("#desc-big").html("&nbsp");
             $("#desc-small").html("&nbsp");
             $("#desc-train").html("&nbsp");
@@ -304,14 +311,14 @@
         });
 
         function toggleButtons(setActiveButton) {
-            $('button').each(function () {
+            $('button').each(function() {
                 if ($(this).attr('name') === setActiveButton) $(this).attr('disabled', false);
                 else $(this).attr('disabled', true);
             });
         }
 
         function blockForm() {
-            $('input').each(function () {
+            $('input').each(function() {
                 $(this).attr('disabled', true);
             });
 

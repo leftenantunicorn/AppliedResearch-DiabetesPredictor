@@ -60,6 +60,11 @@ input {
         min-width: 50%;
     }
 
+    #outcome-img {
+        min-width: 200px;
+        min-height: 200px;
+    }
+
     .row > [class*='col-'] {
         display: flex;
         flex-direction: column;
@@ -80,8 +85,27 @@ input {
     }
 }
 
+@keyframes blink2 {
+    0% {
+        opacity: 0.15;
+    }
+
+    50% {
+        opacity: 0.15;
+    }
+
+    100% {
+        opacity: 0.71;
+    }
+}
+
 .loading {
     animation: blink 2s;
+    animation-iteration-count: infinite
+}
+
+.loading2 {
+    animation: blink2 2s;
     animation-iteration-count: infinite
 }
 

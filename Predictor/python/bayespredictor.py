@@ -31,7 +31,7 @@ try:
     nb_predict_train = nb_model.predict(x_train)
 
     # Calculate record probability as percent
-    probabilityOfDiabetes = nb_model.predict_proba(x_single)[0][1]
+    probabilityOfDiabetes = nb_model.predict_proba([x_single])[0][1]
     print(round(probabilityOfDiabetes,2) * 100, end="")
 
 except Exception as e:

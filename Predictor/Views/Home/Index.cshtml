@@ -3,8 +3,8 @@
 <form class="form-horizontal" id="form">
     <div class="row col-sm-12">
 
-        <div class="row col-sm-6">
-            <!-- Record Fields -->
+        <div class="col-sm-4">
+            <!-- #region Record Fields -->
             <h2>Enter a Record:</h2>
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.num_preg, new { @class = "col-sm-5 control-label" })
@@ -61,40 +61,85 @@
                     @Html.TextBoxFor(model => model.age, new { @class = "form-control" })
                 </div>
             </div>
-
+            <!-- #endregion -->
         </div>
 
-        <div class="row col-sm-6">
-            <!-- Risk Section -->
+        <div class="col-sm-4">
+            <!--#region RiskSection -->
             <h2 class="col-xs-12">Diabetic Risk:</h2>
             <div id="results" class="parent col-xs-12">
                 <div id="description">
-                    <h4 id="desc-big">&nbsp;</h4>
-                    <h5 id="desc-small">&nbsp;</h5>
-                </div>
-                <img src="~/images/gray.png" style="" id="outcome-img" class="child" />
+                    <h4 id="desc-big" class="col-xs-12">&nbsp;</h4>
+                    <h5 id="desc-small" class="col-xs-12">&nbsp;</h5>
+                    <div style="text-align:center">
+                    <img src="~/images/gray.png" id="outcome-img" />
+                    </div>
+                    </div>
             </div>
-
+            <!-- #endregion -->
         </div>
+        <div class="col-sm-4">
+            <h2 class="col-xs-12">Model Metrics:</h2>
+            <div id="metrics">
+            <div class="col-xs-12" id="matrix">
+                <table class="table">
+                    <thead><tr>
+                        <th colspan="2"></th>From a total of <span id="header"></span> records:<th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                True Negative<br/>
+                                <span id="dataTN"></span>
+                            </td>
+                            <td>
+                                False Positive<br />
+                                <span id="dataFP"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                False Negative<br />
+                                <span id="dataFN"></span>
+                            </td>
+                            <td>
+                                True Positive<br />
+                                <span id="dataTP"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 id="sens"></h4>
+            <small>How often does the model correctly predict diabetes given that the condition is present.</small><br />
+            <h4 id="spec"></h4>
+            <small>How often does the model correctly predict the absence of diabeted given that the condition is not present.</small><br />
+            <h4 id="prec"></h4>
+            <small>How often is the model correct in its prediction of diabetes.</small><br />
+            <h4 id="acc"></h4>
+            <small>How often does the model correctly predict the real diagnosis.</small>
+                </div>
+        </div>
+
     </div>
 
     <hr />
-
     <div class="row col-sm-12">
-        <div class="row col-sm-6">
-            <!-- Training Section and Buttons -->
+        <div class="col-sm-6">
+            <!--#region Training Section and Buttons -->
             <div class="form-group form-group-sm checkbox" style="margin-bottom:20px">
-                <label class="col-sm-12 control-label" style="padding-left:0px">
+                <label class="control-label">
                     <input type="checkbox" id="add" />Add this record to the training model?
                 </label>
             </div>
 
             <div class="form-group form-group-sm" id="outcome" hidden>
-                @Html.LabelFor(model => model.outcome, new { @class = "col-sm-5 control-label" })
-                <div class="col-sm-7">
-                    @Html.RadioButtonFor(model => model.outcome, "1", new { id="yes"}) Yes
+                @Html.LabelFor(model => model.outcome, new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.RadioButtonFor(model => model.outcome, "1", new { id = "yes" }) Yes
                 </div>
-                <div class="col-sm-7 col-md-12 col-md-push-5">
+                <div class="col-sm-9 col-md-12 col-md-push-3">
                     @Html.RadioButtonFor(model => model.outcome, "0", new { id = "no", @checked = true }) No
                 </div>
             </div>
@@ -104,38 +149,49 @@
                 <button type="button" id="addToTrain" name="add" disabled>Submit Training Data</button>
                 <button type="button" id="newpredict" name="clear" disabled>Clear</button>
             </div>
+            <!-- #endregion -->
         </div>
-        <div class="row col-sm-6 parent" id="train-description">
+        <div class="col-sm-6 parent" id="train-description">
+            <!--#region Training Result-->
             <h4 class="child" id="desc-train">&nbsp</h4>
+            <!--#endregion-->
         </div>
     </div>
-</form>
 
-<div class="row col-sm-12" id="thing">
-    <button type="button" id="butt" name="predict">Model Data</button>
-</div>
+</form>
 
 @section Scripts {
     <script type="text/javascript">
-        $("#butt").click(function () {
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: '@Url.Action("model/data", "api")',
-                data: JSON.stringify(data),
-                success: function (result) {
-                    alert();
-                    $(this).html(result);
-                },
-                error: function(result) {
-                    alert('There was an error processing your request.');
-                },
-                complete: function() {
-                }
-            });
+        $("#metrics").addClass("loading2");
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: '@Url.Action("model/metrics", "api")',
+            success: function (result) {
+                var data = JSON.parse(result);
+                $("#header").html(data['conf']['true_neg']
+                    + data['conf']['true_pos']
+                    + data['conf']['false_neg']
+                    + data['conf']['false_pos']);
+
+                $("#dataTN").html(data['conf']['true_neg']);
+                $("#dataTP").html(data['conf']['true_pos']);
+                $("#dataFN").html(data['conf']['false_neg']);
+                $("#dataFP").html(data['conf']['false_pos']);
+
+                $("#dataTN").val(data['conf']['true_neg']);
+                $("#sens").html("Sensitivity: " + data['sensitvity'] + "%");
+                $("#spec").html("Specificity: " + data['specificity'] + "%");
+                $("#prec").html("Precision: " + data['precision'] + "%");
+                $("#acc").html("Accuracy: " + data['accuracy'] + "%");
+            },
+            error: function(result) {
+                alert('There was an error processing your request.');
+            },
+            complete: function () {
+                $("#metrics").removeClass("loading2")
+            }
         });
-
-
 
         $("#predictresult").click(function(e) {
             e.preventDefault();

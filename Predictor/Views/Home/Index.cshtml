@@ -170,27 +170,28 @@
                 url: '@Url.Action("model/metrics", "api")',
                 success: function(result) {
                     var data = JSON.parse(result);
-                    $("#header").html(data['conf']['true_neg'] +
-                        data['conf']['true_pos'] +
-                        data['conf']['false_neg'] +
-                        data['conf']['false_pos']);
+                    alert(JSON.stringify(result));
+                    //$("#header").html(data['conf']['true_neg'] +
+                    //    data['conf']['true_pos'] +
+                    //    data['conf']['false_neg'] +
+                    //    data['conf']['false_pos']);
 
-                    $("#dataTN").html(data['conf']['true_neg']);
-                    $("#dataTP").html(data['conf']['true_pos']);
-                    $("#dataFN").html(data['conf']['false_neg']);
-                    $("#dataFP").html(data['conf']['false_pos']);
+                    //$("#dataTN").html(data['conf']['true_neg']);
+                    //$("#dataTP").html(data['conf']['true_pos']);
+                    //$("#dataFN").html(data['conf']['false_neg']);
+                    //$("#dataFP").html(data['conf']['false_pos']);
 
-                    $("#dataTN").val(data['conf']['true_neg']);
-                    $("#sens").html("Sensitivity: " + Math.round(data['sensitvity']) + "%");
-                    $("#spec").html("Specificity: " + Math.round(data['specificity']) + "%");
-                    $("#prec").html("Precision: " + Math.round(data['precision']) + "%");
-                    $("#acc").html("Accuracy: " + Math.round(data['accuracy']) + "%");
+                    //$("#dataTN").val(data['conf']['true_neg']);
+                    //$("#sens").html("Sensitivity: " + Math.round(data['sensitvity']) + "%");
+                    //$("#spec").html("Specificity: " + Math.round(data['specificity']) + "%");
+                    //$("#prec").html("Precision: " + Math.round(data['precision']) + "%");
+                    //$("#acc").html("Accuracy: " + Math.round(data['accuracy']) + "%");
                 },
                 error: function(result) {
                     alert('There was an error processing your request.');
                 },
                 complete: function() {
-                    $("#metrics").removeClass("loading2")
+                    $("#metrics").removeClass("loading2");
                 }
             });
         }

@@ -24,8 +24,8 @@ namespace Predictor.Controllers
             return PythonScriptHelpers.ExecutePythonScript(fileName, dataName, modelRecord.PropertiesAsCsv());
         }
 
-        [Route("trainingset")]
         [HttpPost()]
+        [Route("trainingset")]
         public bool PostToTrainingSet([FromBody] DiabetesOutcomeRecord modelRecord)
         {
             string dataName = "pima-data.csv";

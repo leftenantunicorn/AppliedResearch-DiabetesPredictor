@@ -14,28 +14,9 @@ try:
     import os
     from sklearn.preprocessing import binarize
     from sklearn import metrics
-
-    df = pd.read_csv(sys.argv[1])
-
-    # Prepare feature and result sets
-    feature_col_names = ['num_preg', 'glucose_conc', 'diastolic_bp', 'thickness', 'insulin', 'bmi', 'diab_pred', 'age']
-    predicted_class_names = ['diabetes']
-
-    x = df[feature_col_names].values
-    y = df[predicted_class_names].values
-
-    # Split data into train and test sets
-    split_test_size = 0.20
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=split_test_size, random_state=73) 
-
-    # Manipulate bad data
-    fill_0 = Imputer(missing_values=0, strategy="mean", axis=0)
-    x_train = fill_0.fit_transform(x_train)
-    x_test = fill_0.fit_transform(x_test)
-
-    # Train model
-    nb_model = GaussianNB(priors=[0.5, 0.5])
-    nb_model.fit(x_train, y_train.ravel())
+    from trained_model import y_test
+    from trained_model import x_test
+    from trained_model import nb_model
 
     # Report on accuracies
     nb_predict_test = nb_model.predict(x_test)

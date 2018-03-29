@@ -207,7 +207,7 @@
     <Content Include="images\green.png" />
     <Content Include="images\red.png" />
     <Content Include="images\yellow.png" />
-    <Content Include="python\bayesAddData.py" />
+    <Content Include="python\trained_model.py" />
     <Content Include="python\bayesModelData.py" />
     <Content Include="python\bayespredictor.py" />
     <Content Include="Scripts\bootstrap.js" />

@@ -6,52 +6,57 @@
         <div class="col-sm-4">
             <!-- #region Record Fields -->
             <h2>Enter a Record:</h2>
+            <div class="form-group form-group-sm" id="fill">
+                <h4>Prefill: </h4>
+                <button type="button" id="fillDiabetic" name="predict">Diabetic Record</button>
+                <button type="button" id="fillNonDiabetic" name="add">Non-Diabetic Record</button>
+            </div>
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.num_preg, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.num_preg, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.num_preg, new { @class = "form-control", id= "num_preg" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.glucose_conc, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.glucose_conc, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.glucose_conc, new { @class = "form-control", id = "glucose_conc" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.diastolic_bp, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.diastolic_bp, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.diastolic_bp, new { @class = "form-control", id = "diastolic_bp" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.thickness, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.thickness, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.thickness, new { @class = "form-control", id = "thickness" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.insulin, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.insulin, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.insulin, new { @class = "form-control", id = "insulin" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.bmi, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.bmi, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.bmi, new { @class = "form-control", id = "bmi" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.diab_pred, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.diab_pred, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.diab_pred, new { @class = "form-control", id = "diab_pred" })
                 </div>
             </div>
 
@@ -325,6 +330,28 @@
 
             toggleButtons("clear");
         }
+
+        $("#fillNonDiabetic").click(function(e) {
+            $("#num_preg").val(1);
+            $("#glucose_conc").val(85);
+            $("#diastolic_bp").val(66);
+            $("#thickness").val(29);
+            $("#insulin").val(0);
+            $("#bmi").val(26.6);
+            $("#diab_pred").val(0.351);
+            $("#age").val(31);
+        });
+
+        $("#fillDiabetic").click(function(e) {
+            $("#num_preg").val(0);
+            $("#glucose_conc").val(137);
+            $("#diastolic_bp").val(40);
+            $("#thickness").val(35);
+            $("#insulin").val(168);
+            $("#bmi").val(43.1);
+            $("#diab_pred").val(2.288);
+            $("#age").val(33);
+        });
 
     </script>
 }

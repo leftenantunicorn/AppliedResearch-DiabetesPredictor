@@ -34,7 +34,7 @@ try:
             "precision" : round(metrics.precision_score(tm.y_test, predict_test),2)*100,
             "sensitvity" : round(metrics.recall_score(tm.y_test, predict_test),2)*100,
             "specificity" : round(true_neg/(true_neg + false_pos),2)*100,
-            "accuracy" : round(metrics.accuracy_score(tm.y_test, predict_test),2)*100,
+            "accuracy" : round(metrics.accuracy_score(tm.y_test, predict_test),2)*100
            }
 
     print(json.dumps(data), end="")

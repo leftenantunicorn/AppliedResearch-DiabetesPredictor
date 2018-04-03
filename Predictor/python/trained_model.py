@@ -14,6 +14,8 @@ try:
     import os
     from sklearn.preprocessing import binarize
     from sklearn import metrics
+    import sklearn
+    from sklearn import linear_model
 
     # Get training data
     df = pd.read_csv(sys.argv[1])
@@ -43,15 +45,33 @@ try:
 
     # Train model - SVM
     def getSVCModel():
+    # Set the parameters by cross-validation
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        svc_model = svm.SVC(gamma=0.001,C=10)
+        svc_model = svm.SVC(gamma=0.001,C=10000,kernel="rbf")
         svc_model.fit(x_train, y_train.ravel()) 
         return svc_model
 
-    model = getSVCModel()
+    def getNuSVCModel():
+    # Set the parameters by cross-validation
+        global x_train
+        global x_test
+        x_train = scaler.fit_transform(x_train)
+        x_test = scaler.fit_transform(x_test)
+        nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.1, kernel='rbf', 
+          nu=0.47, probability=False, random_state=0)
+        nuSvc_model.fit(x_train, y_train.ravel()) 
+        return nuSvc_model
+
+    def getLogisticRegressionModel():
+        lr_model = linear_model.LogisticRegression()
+        lr_model.fit(x_train, y_train.ravel())
+        return lr_model
+
+
+    model = getNuSVCModel()
 
 except Exception as e:
     print ("Unexpected error:", format(e) )

@@ -2,20 +2,14 @@
 ## Make model
 
 try:
+    import os
     import sys
     import numpy as np
     import pandas as pd
-    from decimal import Decimal
     import sklearn.preprocessing as pp
-    from sklearn.naive_bayes import GaussianNB
     from sklearn.cross_validation import train_test_split
-    from sklearn import svm
+    from sklearn import svm, linear_model, naive_bayes
     import simplejson as json
-    import os
-    from sklearn.preprocessing import binarize
-    from sklearn import metrics
-    import sklearn
-    from sklearn import linear_model
 
     # Get training data
     df = pd.read_csv(sys.argv[1])
@@ -36,35 +30,34 @@ try:
     x_train = fill_0.fit_transform(x_train)
     scaler = pp.StandardScaler()
 
-    ## train with x, y to use full data set
     # Train model - Naive Bayes
     def getBayesModel():
-        nb_model = GaussianNB(priors=[0.45,0.55])
+        nb_model = naive_bayes.GaussianNB(priors=[0.45,0.55])
         nb_model.fit(x_train, y_train.ravel())
         return nb_model
 
-    # Train model - SVM
+    # Train model - SVC
     def getSVCModel():
-    # Set the parameters by cross-validation
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        svc_model = svm.SVC(gamma=0.001,C=10000,kernel="rbf")
+        svc_model = svm.SVC(gamma=0.001,C=10000,kernel="rbf", probability=True)
         svc_model.fit(x_train, y_train.ravel()) 
         return svc_model
 
+    # Train model - NuSVC
     def getNuSVCModel():
-    # Set the parameters by cross-validation
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
         nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.1, kernel='rbf', 
-          nu=0.47, probability=False, random_state=0)
+          nu=0.47, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
 
+    # Train model - Logistic Regression
     def getLogisticRegressionModel():
         lr_model = linear_model.LogisticRegression()
         lr_model.fit(x_train, y_train.ravel())

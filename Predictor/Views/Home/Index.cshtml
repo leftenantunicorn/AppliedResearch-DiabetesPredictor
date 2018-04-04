@@ -6,64 +6,64 @@
         <div class="col-sm-4">
             <!-- #region Record Fields -->
             <h2>Enter a Record:</h2>
-            <div class="form-group form-group-sm" id="fill">
+            <div class="form-group form-group-sm col-xs-12" id="fill">
                 <h4>Prefill: </h4>
-                <button type="button" id="fillDiabetic" name="predict">Diabetic Record</button>
-                <button type="button" id="fillNonDiabetic" name="add">Non-Diabetic Record</button>
+                <button type="button" id="fillDiabetic" name="diabetic">Diabetic Record</button>
+                <button type="button" id="fillNonDiabetic" name="nondiabetic">Non-Diabetic Record</button>
             </div>
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.num_preg, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.num_preg, new { @class = "form-control", id= "num_preg" })
+                    @Html.TextBoxFor(model => model.num_preg, new { @class = "form-control", id= "num_preg", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.glucose_conc, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.glucose_conc, new { @class = "form-control", id = "glucose_conc" })
+                    @Html.TextBoxFor(model => model.glucose_conc, new { @class = "form-control", id = "glucose_conc", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.diastolic_bp, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.diastolic_bp, new { @class = "form-control", id = "diastolic_bp" })
+                    @Html.TextBoxFor(model => model.diastolic_bp, new { @class = "form-control", id = "diastolic_bp", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.thickness, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.thickness, new { @class = "form-control", id = "thickness" })
+                    @Html.TextBoxFor(model => model.thickness, new { @class = "form-control", id = "thickness", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.insulin, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.insulin, new { @class = "form-control", id = "insulin" })
+                    @Html.TextBoxFor(model => model.insulin, new { @class = "form-control", id = "insulin", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.bmi, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.bmi, new { @class = "form-control", id = "bmi" })
+                    @Html.TextBoxFor(model => model.bmi, new { @class = "form-control", id = "bmi", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.diab_pred, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.diab_pred, new { @class = "form-control", id = "diab_pred" })
+                    @Html.TextBoxFor(model => model.diab_pred, new { @class = "form-control", id = "diab_pred", @type = "number" })
                 </div>
             </div>
 
             <div class="form-group form-group-sm">
                 @Html.LabelFor(model => model.age, new { @class = "col-sm-5 control-label" })
                 <div class="col-sm-7">
-                    @Html.TextBoxFor(model => model.age, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.age, new { @class = "form-control", @type = "number" })
                 </div>
             </div>
             <!-- #endregion -->
@@ -116,40 +116,41 @@
                     </tbody>
                 </table>
             </div>
-            <h4 id="sens"></h4>
-            <small>How often does the model correctly predict diabetes given that the condition is present.</small><br />
-            <h4 id="spec"></h4>
-            <small>How often does the model correctly predict the absence of diabeted given that the condition is not present.</small><br />
-            <h4 id="prec"></h4>
-            <small>How often is the model correct in its prediction of diabetes.</small><br />
-            <h4 id="acc"></h4>
-            <small>How often does the model correctly predict the real diagnosis.</small>
-                </div>
+            <div class="col-xs-12">
+                <h4 id="sens"></h4>
+                <small>How often does the model correctly predict diabetes given that the condition is present.</small><br />
+                <h4 id="spec"></h4>
+                <small>How often does the model correctly predict the absence of diabeted given that the condition is not present.</small><br />
+                <h4 id="prec"></h4>
+                <small>How often is the model correct in its prediction of diabetes.</small><br />
+                <h4 id="acc"></h4>
+                <small>How often does the model correctly predict the real diagnosis.</small>
+            </div>
         </div>
 
     </div>
 
-    <hr />
+    <hr class="col-xs-12"/>
     <div class="row col-sm-12">
         <div class="col-sm-6">
             <!--#region Training Section and Buttons -->
-            <div class="form-group form-group-sm checkbox" style="margin-bottom:20px">
+            <div class="form-group form-group-sm checkbox col-xs-12" style="margin-bottom:20px">
                 <label class="control-label">
                     <input type="checkbox" id="add" />Add this record to the training model?
                 </label>
             </div>
 
-            <div class="form-group form-group-sm" id="outcome" hidden>
-                @Html.LabelFor(model => model.outcome, new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
+            <div class="form-group form-group-sm col-sm-6" id="outcome" hidden>
+                @Html.LabelFor(model => model.outcome, new { @class = "col-sm-6 control-label", id = "add-label" })
+                <div class="col-sm-6">
                     @Html.RadioButtonFor(model => model.outcome, "1", new { id = "yes" }) Yes
                 </div>
-                <div class="col-sm-9 col-md-12 col-md-push-3">
+                <div class="col-sm-6 col-lg-push-6">
                     @Html.RadioButtonFor(model => model.outcome, "0", new { id = "no", @checked = true }) No
                 </div>
             </div>
 
-            <div class="form-group form-group-sm" id="buttons">
+            <div class="form-group form-group-sm col-xs-12" id="buttons">
                 <button type="button" id="predictresult" name="predict">Predict Risk</button>
                 <button type="button" id="addToTrain" name="add" disabled>Submit Training Data</button>
                 <button type="button" id="newpredict" name="clear" disabled>Clear</button>
@@ -219,6 +220,7 @@
                 url: '@Url.Action("prediction", "api")',
                 data: JSON.stringify(data),
                 success: function (result) {
+                    //alert(result);
                     var probability = parseFloat(result);
                     $("#desc-big").html("");
                     $("#desc-small").html("");
@@ -277,8 +279,8 @@
 
                     $("#desc-train").html("");
 
-                    if (result) $("#desc-train").html("You data was successfully submitted.");
-                    else $("#desc-train").html("There was an error submitting your data. Please verify values.");
+                    if (result) $("#desc-train").html("You data was successfully submitted.").removeClass().addClass("text-success");
+                    else $("#desc-train").html("There was an error submitting your data. Please verify values.").removeClass().addClass("text-danger");
 
                     refreshModelMetrics();
 
@@ -297,7 +299,7 @@
 
             $('input').each(function() {
                 $(this).attr('disabled', false);
-                if ($(this).is(":text")) $(this).val("0");
+                if ($(this).is(":input")) $(this).val(0);
             });
 
             $("#no").click();
@@ -317,7 +319,7 @@
         });
 
         function toggleButtons(setActiveButton) {
-            $('button').each(function() {
+            $("#buttons").find("button").each(function() {
                 if ($(this).attr('name') === setActiveButton) $(this).attr('disabled', false);
                 else $(this).attr('disabled', true);
             });
@@ -343,14 +345,14 @@
         });
 
         $("#fillDiabetic").click(function(e) {
-            $("#num_preg").val(0);
-            $("#glucose_conc").val(137);
-            $("#diastolic_bp").val(40);
-            $("#thickness").val(35);
-            $("#insulin").val(168);
-            $("#bmi").val(43.1);
-            $("#diab_pred").val(2.288);
-            $("#age").val(33);
+            $("#num_preg").val(2);
+            $("#glucose_conc").val(197);
+            $("#diastolic_bp").val(70);
+            $("#thickness").val(45);
+            $("#insulin").val(543);
+            $("#bmi").val(30.5);
+            $("#diab_pred").val(0.158);
+            $("#age").val(53);
         });
 
     </script>

@@ -24,7 +24,7 @@ namespace Predictor.Models
         [Display(Name = "Insulin:")]
         public double insulin { get; set; }
         [Required]
-        [Display(Name = "Bpdy Mass Index:")]
+        [Display(Name = "Body Mass Index:")]
         public double bmi { get; set; }
         [Required]
         [Display(Name = "Diabetes Pedigree Function:")]

@@ -18,6 +18,10 @@ textarea {
 
 /**Custom*/
 
+h2 {
+    margin-left: 0
+}
+
 input {
     max-width: 80%;
 }

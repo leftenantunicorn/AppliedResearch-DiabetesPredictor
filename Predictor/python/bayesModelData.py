@@ -2,18 +2,12 @@
 ## Get data about the trained model
 
 try:
+    import os
     import sys
     import numpy as np
     import pandas as pd
-    from decimal import Decimal
-    from sklearn.preprocessing import Imputer
-    from sklearn.naive_bayes import GaussianNB
-    from sklearn.cross_validation import train_test_split
-    from sklearn import svm
-    import simplejson as json
-    import os
-    from sklearn.preprocessing import binarize
     from sklearn import metrics
+    import simplejson as json
     import trained_model as tm
 
     # Report on accuracies
@@ -34,7 +28,9 @@ try:
             "precision" : round(metrics.precision_score(tm.y_test, predict_test),2)*100,
             "sensitvity" : round(metrics.recall_score(tm.y_test, predict_test),2)*100,
             "specificity" : round(true_neg/(true_neg + false_pos),2)*100,
-            "accuracy" : round(metrics.accuracy_score(tm.y_test, predict_test),2)*100
+            "accuracy" : round(metrics.accuracy_score(tm.y_test, predict_test),2)*100,
+            "thing" : predict_test.tolist(),
+            "thing" : tm.x_test.tolist()
            }
 
     print(json.dumps(data), end="")

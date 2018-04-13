@@ -15,7 +15,7 @@ try:
     df = pd.read_csv(sys.argv[1])
 
     # Prepare feature and result sets
-    feature_col_names = ['num_preg', 'glucose_conc', 'diastolic_bp', 'thickness', 'insulin', 'bmi', 'diab_pred', 'age']
+    feature_col_names = ['num_preg', 'glucose_conc', 'diastolic_bp', 'bmi', 'diab_pred']
     predicted_class_names = ['diabetes']
 
     x = df[feature_col_names].values
@@ -64,7 +64,7 @@ try:
         return lr_model
 
 
-    model = getNuSVCModel()
+    model = getLogisticRegressionModel()
 
 except Exception as e:
     print ("Unexpected error:", format(e) )

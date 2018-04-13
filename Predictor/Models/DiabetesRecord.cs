@@ -14,16 +14,16 @@ namespace Predictor.Models
         public double glucose_conc { get; set; }
         [Order(3)]
         public double diastolic_bp { get; set; }
-        [Order(4)]
-        public double thickness { get; set; }
-        [Order(5)]
-        public double insulin { get; set; }
+       // [Order(4)]
+       // public double thickness { get; set; }
+       // [Order(5)]
+       // public double insulin { get; set; }
         [Order(6)]
         public double bmi { get; set; }
         [Order(7)]
         public double diab_pred { get; set; }
-        [Order(8)]
-        public double age { get; set; }
+        //[Order(8)]
+        //public double age { get; set; }
 
         public String PropertiesAsCsv()
         {

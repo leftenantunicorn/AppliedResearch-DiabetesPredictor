@@ -1,0 +1,938 @@
+﻿[
+  {
+    "accuracy": 55.00000000000001,
+    "nu": 0.01,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 145,
+      "true_pos": 65,
+      "false_pos": 110
+    },
+    "specificity": 56.99999999999999,
+    "precision": 37.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 53.0,
+    "nu": 0.02,
+    "conf": {
+      "false_neg": 57,
+      "true_neg": 130,
+      "true_pos": 72,
+      "false_pos": 125
+    },
+    "specificity": 51.0,
+    "precision": 37.0,
+    "sensitvity": 56.00000000000001
+  },
+  {
+    "accuracy": 55.00000000000001,
+    "nu": 0.03,
+    "conf": {
+      "false_neg": 46,
+      "true_neg": 127,
+      "true_pos": 83,
+      "false_pos": 128
+    },
+    "specificity": 50.0,
+    "precision": 39.0,
+    "sensitvity": 64.0
+  },
+  {
+    "accuracy": 57.99999999999999,
+    "nu": 0.04,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 159,
+      "true_pos": 65,
+      "false_pos": 96
+    },
+    "specificity": 62.0,
+    "precision": 40.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 67.0,
+    "nu": 0.05,
+    "conf": {
+      "false_neg": 53,
+      "true_neg": 181,
+      "true_pos": 76,
+      "false_pos": 74
+    },
+    "specificity": 71.0,
+    "precision": 51.0,
+    "sensitvity": 59.0
+  },
+  {
+    "accuracy": 62.0,
+    "nu": 0.06,
+    "conf": {
+      "false_neg": 56,
+      "true_neg": 165,
+      "true_pos": 73,
+      "false_pos": 90
+    },
+    "specificity": 65.0,
+    "precision": 45.0,
+    "sensitvity": 56.99999999999999
+  },
+  {
+    "accuracy": 63.0,
+    "nu": 0.07,
+    "conf": {
+      "false_neg": 52,
+      "true_neg": 165,
+      "true_pos": 77,
+      "false_pos": 90
+    },
+    "specificity": 65.0,
+    "precision": 46.0,
+    "sensitvity": 60.0
+  },
+  {
+    "accuracy": 59.0,
+    "nu": 0.08,
+    "conf": {
+      "false_neg": 60,
+      "true_neg": 158,
+      "true_pos": 69,
+      "false_pos": 97
+    },
+    "specificity": 62.0,
+    "precision": 42.0,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 64.0,
+    "nu": 0.09,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 181,
+      "true_pos": 66,
+      "false_pos": 74
+    },
+    "specificity": 71.0,
+    "precision": 47.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 68.0,
+    "nu": 0.1,
+    "conf": {
+      "false_neg": 49,
+      "true_neg": 183,
+      "true_pos": 80,
+      "false_pos": 72
+    },
+    "specificity": 72.0,
+    "precision": 53.0,
+    "sensitvity": 62.0
+  },
+  {
+    "accuracy": 67.0,
+    "nu": 0.11,
+    "conf": {
+      "false_neg": 56,
+      "true_neg": 186,
+      "true_pos": 73,
+      "false_pos": 69
+    },
+    "specificity": 73.0,
+    "precision": 51.0,
+    "sensitvity": 56.99999999999999
+  },
+  {
+    "accuracy": 63.0,
+    "nu": 0.12,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 177,
+      "true_pos": 64,
+      "false_pos": 78
+    },
+    "specificity": 69.0,
+    "precision": 45.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 61.0,
+    "nu": 0.13,
+    "conf": {
+      "false_neg": 51,
+      "true_neg": 155,
+      "true_pos": 78,
+      "false_pos": 100
+    },
+    "specificity": 61.0,
+    "precision": 44.0,
+    "sensitvity": 60.0
+  },
+  {
+    "accuracy": 63.0,
+    "nu": 0.14,
+    "conf": {
+      "false_neg": 54,
+      "true_neg": 166,
+      "true_pos": 75,
+      "false_pos": 89
+    },
+    "specificity": 65.0,
+    "precision": 46.0,
+    "sensitvity": 57.99999999999999
+  },
+  {
+    "accuracy": 69.0,
+    "nu": 0.15,
+    "conf": {
+      "false_neg": 59,
+      "true_neg": 194,
+      "true_pos": 70,
+      "false_pos": 61
+    },
+    "specificity": 76.0,
+    "precision": 53.0,
+    "sensitvity": 54.0
+  },
+  {
+    "accuracy": 64.0,
+    "nu": 0.16,
+    "conf": {
+      "false_neg": 52,
+      "true_neg": 168,
+      "true_pos": 77,
+      "false_pos": 87
+    },
+    "specificity": 66.0,
+    "precision": 47.0,
+    "sensitvity": 60.0
+  },
+  {
+    "accuracy": 66.0,
+    "nu": 0.17,
+    "conf": {
+      "false_neg": 53,
+      "true_neg": 176,
+      "true_pos": 76,
+      "false_pos": 79
+    },
+    "specificity": 69.0,
+    "precision": 49.0,
+    "sensitvity": 59.0
+  },
+  {
+    "accuracy": 67.0,
+    "nu": 0.18,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 194,
+      "true_pos": 64,
+      "false_pos": 61
+    },
+    "specificity": 76.0,
+    "precision": 51.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 65.0,
+    "nu": 0.19,
+    "conf": {
+      "false_neg": 58,
+      "true_neg": 178,
+      "true_pos": 71,
+      "false_pos": 77
+    },
+    "specificity": 70.0,
+    "precision": 48.0,
+    "sensitvity": 55.00000000000001
+  },
+  {
+    "accuracy": 67.0,
+    "nu": 0.2,
+    "conf": {
+      "false_neg": 51,
+      "true_neg": 178,
+      "true_pos": 78,
+      "false_pos": 77
+    },
+    "specificity": 70.0,
+    "precision": 50.0,
+    "sensitvity": 60.0
+  },
+  {
+    "accuracy": 70.0,
+    "nu": 0.21,
+    "conf": {
+      "false_neg": 61,
+      "true_neg": 199,
+      "true_pos": 68,
+      "false_pos": 56
+    },
+    "specificity": 78.0,
+    "precision": 55.00000000000001,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 70.0,
+    "nu": 0.22,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 202,
+      "true_pos": 66,
+      "false_pos": 53
+    },
+    "specificity": 79.0,
+    "precision": 55.00000000000001,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 70.0,
+    "nu": 0.23,
+    "conf": {
+      "false_neg": 71,
+      "true_neg": 210,
+      "true_pos": 58,
+      "false_pos": 45
+    },
+    "specificity": 82.0,
+    "precision": 56.00000000000001,
+    "sensitvity": 45.0
+  },
+  {
+    "accuracy": 72.0,
+    "nu": 0.24,
+    "conf": {
+      "false_neg": 60,
+      "true_neg": 206,
+      "true_pos": 69,
+      "false_pos": 49
+    },
+    "specificity": 81.0,
+    "precision": 57.99999999999999,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 71.0,
+    "nu": 0.25,
+    "conf": {
+      "false_neg": 61,
+      "true_neg": 204,
+      "true_pos": 68,
+      "false_pos": 51
+    },
+    "specificity": 80.0,
+    "precision": 56.99999999999999,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 71.0,
+    "nu": 0.26,
+    "conf": {
+      "false_neg": 70,
+      "true_neg": 215,
+      "true_pos": 59,
+      "false_pos": 40
+    },
+    "specificity": 84.0,
+    "precision": 60.0,
+    "sensitvity": 46.0
+  },
+  {
+    "accuracy": 71.0,
+    "nu": 0.27,
+    "conf": {
+      "false_neg": 66,
+      "true_neg": 208,
+      "true_pos": 63,
+      "false_pos": 47
+    },
+    "specificity": 82.0,
+    "precision": 56.99999999999999,
+    "sensitvity": 49.0
+  },
+  {
+    "accuracy": 71.0,
+    "nu": 0.28,
+    "conf": {
+      "false_neg": 66,
+      "true_neg": 208,
+      "true_pos": 63,
+      "false_pos": 47
+    },
+    "specificity": 82.0,
+    "precision": 56.99999999999999,
+    "sensitvity": 49.0
+  },
+  {
+    "accuracy": 71.0,
+    "nu": 0.29,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 207,
+      "true_pos": 64,
+      "false_pos": 48
+    },
+    "specificity": 81.0,
+    "precision": 56.99999999999999,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 72.0,
+    "nu": 0.3,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 212,
+      "true_pos": 64,
+      "false_pos": 43
+    },
+    "specificity": 83.0,
+    "precision": 60.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 73.0,
+    "nu": 0.31,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 217,
+      "true_pos": 64,
+      "false_pos": 38
+    },
+    "specificity": 85.0,
+    "precision": 63.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.32,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 220,
+      "true_pos": 64,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.33,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 220,
+      "true_pos": 65,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.34,
+    "conf": {
+      "false_neg": 66,
+      "true_neg": 223,
+      "true_pos": 63,
+      "false_pos": 32
+    },
+    "specificity": 87.0,
+    "precision": 66.0,
+    "sensitvity": 49.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.35,
+    "conf": {
+      "false_neg": 66,
+      "true_neg": 223,
+      "true_pos": 63,
+      "false_pos": 32
+    },
+    "specificity": 87.0,
+    "precision": 66.0,
+    "sensitvity": 49.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.36,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 221,
+      "true_pos": 64,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 65.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.37,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 220,
+      "true_pos": 65,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.38,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 220,
+      "true_pos": 65,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.39,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 220,
+      "true_pos": 66,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 73.0,
+    "nu": 0.4,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 217,
+      "true_pos": 65,
+      "false_pos": 38
+    },
+    "specificity": 85.0,
+    "precision": 63.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 73.0,
+    "nu": 0.41,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 218,
+      "true_pos": 64,
+      "false_pos": 37
+    },
+    "specificity": 85.0,
+    "precision": 63.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 73.0,
+    "nu": 0.42,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 218,
+      "true_pos": 64,
+      "false_pos": 37
+    },
+    "specificity": 85.0,
+    "precision": 63.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.43,
+    "conf": {
+      "false_neg": 66,
+      "true_neg": 222,
+      "true_pos": 63,
+      "false_pos": 33
+    },
+    "specificity": 87.0,
+    "precision": 66.0,
+    "sensitvity": 49.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.44,
+    "conf": {
+      "false_neg": 67,
+      "true_neg": 222,
+      "true_pos": 62,
+      "false_pos": 33
+    },
+    "specificity": 87.0,
+    "precision": 65.0,
+    "sensitvity": 48.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.45,
+    "conf": {
+      "false_neg": 67,
+      "true_neg": 221,
+      "true_pos": 62,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 65.0,
+    "sensitvity": 48.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.46,
+    "conf": {
+      "false_neg": 66,
+      "true_neg": 220,
+      "true_pos": 63,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 64.0,
+    "sensitvity": 49.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.47,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 221,
+      "true_pos": 64,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 65.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.48,
+    "conf": {
+      "false_neg": 64,
+      "true_neg": 221,
+      "true_pos": 65,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 66.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.49,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 220,
+      "true_pos": 66,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.5,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 220,
+      "true_pos": 67,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 66.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.51,
+    "conf": {
+      "false_neg": 61,
+      "true_neg": 219,
+      "true_pos": 68,
+      "false_pos": 36
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.52,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 219,
+      "true_pos": 66,
+      "false_pos": 36
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 74.0,
+    "nu": 0.53,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 220,
+      "true_pos": 66,
+      "false_pos": 35
+    },
+    "specificity": 86.0,
+    "precision": 65.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.54,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 221,
+      "true_pos": 66,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 66.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.55,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 221,
+      "true_pos": 67,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 66.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.56,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 223,
+      "true_pos": 67,
+      "false_pos": 32
+    },
+    "specificity": 87.0,
+    "precision": 68.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.57,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 224,
+      "true_pos": 67,
+      "false_pos": 31
+    },
+    "specificity": 88.0,
+    "precision": 68.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.58,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 224,
+      "true_pos": 67,
+      "false_pos": 31
+    },
+    "specificity": 88.0,
+    "precision": 68.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.59,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 224,
+      "true_pos": 67,
+      "false_pos": 31
+    },
+    "specificity": 88.0,
+    "precision": 68.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.6,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 223,
+      "true_pos": 67,
+      "false_pos": 32
+    },
+    "specificity": 87.0,
+    "precision": 68.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.61,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 222,
+      "true_pos": 67,
+      "false_pos": 33
+    },
+    "specificity": 87.0,
+    "precision": 67.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.62,
+    "conf": {
+      "false_neg": 61,
+      "true_neg": 222,
+      "true_pos": 68,
+      "false_pos": 33
+    },
+    "specificity": 87.0,
+    "precision": 67.0,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.63,
+    "conf": {
+      "false_neg": 62,
+      "true_neg": 222,
+      "true_pos": 67,
+      "false_pos": 33
+    },
+    "specificity": 87.0,
+    "precision": 67.0,
+    "sensitvity": 52.0
+  },
+  {
+    "accuracy": 75.0,
+    "nu": 0.64,
+    "conf": {
+      "false_neg": 61,
+      "true_neg": 221,
+      "true_pos": 68,
+      "false_pos": 34
+    },
+    "specificity": 87.0,
+    "precision": 67.0,
+    "sensitvity": 53.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.65,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 225,
+      "true_pos": 66,
+      "false_pos": 30
+    },
+    "specificity": 88.0,
+    "precision": 69.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.66,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 225,
+      "true_pos": 66,
+      "false_pos": 30
+    },
+    "specificity": 88.0,
+    "precision": 69.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.67,
+    "conf": {
+      "false_neg": 63,
+      "true_neg": 226,
+      "true_pos": 66,
+      "false_pos": 29
+    },
+    "specificity": 89.0,
+    "precision": 69.0,
+    "sensitvity": 51.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.68,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 227,
+      "true_pos": 64,
+      "false_pos": 28
+    },
+    "specificity": 89.0,
+    "precision": 70.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.69,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 228,
+      "true_pos": 64,
+      "false_pos": 27
+    },
+    "specificity": 89.0,
+    "precision": 70.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 77.0,
+    "nu": 0.7,
+    "conf": {
+      "false_neg": 65,
+      "true_neg": 230,
+      "true_pos": 64,
+      "false_pos": 25
+    },
+    "specificity": 90.0,
+    "precision": 72.0,
+    "sensitvity": 50.0
+  },
+  {
+    "accuracy": 77.0,
+    "nu": 0.71,
+    "conf": {
+      "false_neg": 68,
+      "true_neg": 235,
+      "true_pos": 61,
+      "false_pos": 20
+    },
+    "specificity": 92.0,
+    "precision": 75.0,
+    "sensitvity": 47.0
+  },
+  {
+    "accuracy": 76.0,
+    "nu": 0.72,
+    "conf": {
+      "false_neg": 75,
+      "true_neg": 237,
+      "true_pos": 54,
+      "false_pos": 18
+    },
+    "specificity": 93.0,
+    "precision": 75.0,
+    "sensitvity": 42.0
+  }
+]

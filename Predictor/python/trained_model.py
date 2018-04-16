@@ -22,7 +22,7 @@ try:
     y = df[predicted_class_names].values
 
     # Split data into train and test sets
-    split_test_size = 0.20
+    split_test_size = 0.50
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=split_test_size, random_state=73) 
 
     # Manipulate bad data
@@ -36,7 +36,7 @@ try:
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.1, kernel='rbf', 
+        nuSvc_model = svm.NuSVC(class_weight=None,00 coef0=0.0, gamma=0.1, kernel='rbf', 
           nu=nuValue, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
@@ -64,7 +64,7 @@ try:
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
         nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.1, kernel='rbf', 
-          nu=0.47, probability=True, random_state=0)
+          nu=0.21, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
 
@@ -75,7 +75,7 @@ try:
         return lr_model
 
 
-    model = getLogisticRegressionModel()
+    model = getNuSVCModel()
 
 except Exception as e:
     print ("Unexpected error:", format(e) )

@@ -207,6 +207,7 @@
     <Content Include="images\green.png" />
     <Content Include="images\red.png" />
     <Content Include="images\yellow.png" />
+    <Content Include="python\hyperparams.py" />
     <Content Include="python\trained_model.py" />
     <Content Include="python\bayesModelData.py" />
     <Content Include="python\bayespredictor.py" />
@@ -236,6 +237,7 @@
     </Content>
     <Content Include="python\pima-data.csv" />
     <Content Include="python\pima-data-test.csv" />
+    <Content Include="python\json.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

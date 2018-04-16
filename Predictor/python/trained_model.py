@@ -29,6 +29,17 @@ try:
     fill_0 = pp.Imputer(missing_values=0, strategy="mean", axis=0)
     x_train = fill_0.fit_transform(x_train)
     scaler = pp.StandardScaler()
+	# Accuracy Method of NuSVC
+    # Train model - NuSVC
+    def getNuSVCModelAccuracy(nuValue):
+        global x_train
+        global x_test
+        x_train = scaler.fit_transform(x_train)
+        x_test = scaler.fit_transform(x_test)
+        nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.1, kernel='rbf', 
+          nu=nuValue, probability=True, random_state=0)
+        nuSvc_model.fit(x_train, y_train.ravel()) 
+        return nuSvc_model
 
     # Train model - Naive Bayes
     def getBayesModel():

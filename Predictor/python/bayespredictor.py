@@ -18,7 +18,7 @@ try:
     # Calculate record probability as percent
     probabilityOfDiabetes = tm.model.predict_proba(x_single)[0][1]
 
-    print(round(probabilityOfDiabetes,2) * 100, end="")
+	print(round(probabilityOfDiabetes,2) * 100, end="")
 
 except Exception as e:
     print ("Unexpected error:", format(e) )

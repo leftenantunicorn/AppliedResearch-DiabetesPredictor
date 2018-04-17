@@ -13,7 +13,7 @@ namespace Predictor.Helpers
     {
         public static string ExecutePythonScript(string fileName, string dataName, params string[] args)
         {
-            var pythonInstallationLocation = ConfigurationManager.AppSettings["pythonPathZoltan"];
+            var pythonInstallationLocation = ConfigurationManager.AppSettings["pythonPathErin"];
 
             string result;
             string pathPy = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"python\", fileName);

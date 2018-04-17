@@ -13,7 +13,7 @@ try:
     x_single = [[Decimal(n) for n in sys.argv[2].split(",")]]
     
     if(isinstance(tm.model, svm.classes.SVC) or isinstance(tm.model, svm.classes.NuSVC) ) :
-       x_single = tm.scaler.transform(x_single)
+        x_single = tm.scaler.transform(x_single)
 
     # Calculate record probability as percent
     probabilityOfDiabetes = tm.model.predict_proba(x_single)[0][1]

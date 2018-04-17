@@ -20,5 +20,17 @@ namespace Predictor.Controllers
 
             return PythonScriptHelpers.ExecutePythonScript(fileName, dataName);
         }
+
+
+        [HttpGet]
+        [Route("nu-values")]
+        public string GetPredictionMatrix()
+        {
+            string fileName = "hyperparams.py";
+            string dataName = "pima-data.csv";
+            var x = PythonScriptHelpers.ExecutePythonScript(fileName, dataName);
+            return x;
+        }
+
     }
 }

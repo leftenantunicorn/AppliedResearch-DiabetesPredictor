@@ -27,6 +27,13 @@ namespace Predictor.Models
 
         public String PropertiesAsCsv()
         {
+            var filter = new List<string>() { "diastolic_bp", "thickness", "insulin" };
+            var sortedProperties = this.GetType().GetProperties().OrderBy(x => (x.GetCustomAttributes(typeof(Order), true).Single() as Order).OrderNumber);
+            return string.Join(",", sortedProperties.Select(x => x.GetValue(this)).Where(x => !filter.Contains(x)));
+        }
+
+        public String PropertiesAsCsvFull()
+        {
             var sortedProperties = this.GetType().GetProperties().OrderBy(x => (x.GetCustomAttributes(typeof(Order), true).Single() as Order).OrderNumber);
             return string.Join(",", sortedProperties.Select(x => x.GetValue(this)));
         }

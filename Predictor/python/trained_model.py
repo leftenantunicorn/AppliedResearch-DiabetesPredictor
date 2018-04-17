@@ -15,7 +15,9 @@ try:
     df = pd.read_csv(sys.argv[1])
 
     # Prepare feature and result sets
-    feature_col_names = ['num_preg', 'glucose_conc', 'diastolic_bp', 'thickness', 'insulin', 'bmi', 'diab_pred', 'age']
+    feature_col_names_fullset = ['num_preg', 'glucose_conc', 'diastolic_bp', 'thickness', 'insulin', 'bmi', 'diab_pred', 'age']
+
+    feature_col_names = ['num_preg', 'glucose_conc', 'bmi', 'diab_pred','age']
     predicted_class_names = ['diabetes']
 
     x = df[feature_col_names].values
@@ -43,6 +45,16 @@ try:
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
         svc_model = svm.SVC(gamma=0.001,C=10000,kernel="rbf", probability=True)
+        svc_model.fit(x_train, y_train.ravel()) 
+        return svc_model
+
+    # Train model - SVC Linear
+    def getSVCLinearModel():
+        global x_train
+        global x_test
+        x_train = scaler.fit_transform(x_train)
+        x_test = scaler.fit_transform(x_test)
+        svc_model = svm.SVC(kernel="linear")
         svc_model.fit(x_train, y_train.ravel()) 
         return svc_model
 

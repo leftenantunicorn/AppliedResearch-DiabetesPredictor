@@ -10,18 +10,47 @@ try:
     from sklearn.cross_validation import train_test_split
     from sklearn import svm, linear_model, naive_bayes
     import simplejson as json
+    from sklearn.pipeline import make_union, make_pipeline
+    from sklearn.base import BaseEstimator, TransformerMixin
 
     # Get training data
     df = pd.read_csv(sys.argv[1])
 
     # Prepare feature and result sets
     feature_col_names_fullset = ['num_preg', 'glucose_conc', 'diastolic_bp', 'thickness', 'insulin', 'bmi', 'diab_pred', 'age']
-
-    feature_col_names = ['num_preg', 'glucose_conc', 'bmi', 'diab_pred']
+    feature_col_names = ['num_preg', 'glucose_conc', 'bmi', 'diab_pred', 'age']
     predicted_class_names = ['diabetes']
 
-    x = df[feature_col_names_fullset].values
     y = df[predicted_class_names].values
+
+    fill_0 = pp.Imputer(missing_values=0, strategy="mean", axis=0)
+    scaler = pp.StandardScaler()
+    
+    # Manipulate bad data
+
+    # from https://medium.com/@literallywords/sklearn-identity-transformer-fcc18bac0e98
+    class IdentityTransformer(BaseEstimator, TransformerMixin):
+        def __init__(self):
+            pass
+
+        def fit(self, input_array, y=None):
+            return self
+
+        def transform(self, input_array, y=None):
+            return input_array * 1
+
+    def get_invalid0_cols(df):
+        return df[['num_preg', 'glucose_conc','bmi', 'diab_pred', 'diastolic_bp']]
+
+    def get_valid0_cols(df):
+        return df[['num_preg']]
+
+    vec = make_union(*[
+        make_pipeline(pp.FunctionTransformer(get_valid0_cols, validate=False), IdentityTransformer()),
+        make_pipeline(pp.FunctionTransformer(get_invalid0_cols, validate=False), fill_0),
+    ])
+    
+    x = vec.fit_transform(df)
 
     # Split data into train and test sets
     split_test_size = 0.20
@@ -31,9 +60,6 @@ try:
     #split_val_size = 0.20
     #x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=split_val_size, random_state=73) 
 
-    # Manipulate bad data
-    fill_0 = pp.Imputer(missing_values=0, strategy="mean", axis=0)
-    x_train = fill_0.fit_transform(x_train)
     scaler = pp.StandardScaler()
 
     # Train model - Accuracy Method of NuSVC
@@ -79,8 +105,8 @@ try:
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.01, kernel='rbf', 
-          nu=0.57, probability=True, random_state=0)
+        nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.01, kernel='linear', 
+          nu=0.47, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
 
@@ -91,7 +117,7 @@ try:
         return lr_model
 
 
-    model = getNuSVCModel()
+    model = getLogisticRegressionModel()
 
 except Exception as e:
     print ("Unexpected error:", format(e) )

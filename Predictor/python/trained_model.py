@@ -41,7 +41,7 @@ try:
             return input_array * 1
 
     def get_invalid0_cols(df):
-        return df[[ 'glucose_conc', 'bmi', 'diab_pred', 'age' ]]
+        return df[[ 'glucose_conc', 'diastolic_bp', 'bmi', 'diab_pred' ]]
 
     def get_valid0_cols(df):
         return df[['num_preg']]
@@ -51,8 +51,8 @@ try:
 
     vec = make_union(*[
         make_pipeline(pp.FunctionTransformer(get_valid0_cols, validate=False), IdentityTransformer()),
-        make_pipeline(pp.FunctionTransformer(get_invalid0_cols, validate=False), fill_0),
-        make_pipeline(pp.FunctionTransformer(get_insulin_cols, validate=False), fill_insulin),
+        make_pipeline(pp.FunctionTransformer(get_invalid0_cols, validate=False), fill_0)
+        #make_pipeline(pp.FunctionTransformer(get_insulin_cols, validate=False), fill_insulin),
     ])
     x = vec.fit_transform(df)
 
@@ -64,14 +64,12 @@ try:
     #split_val_size = 0.20
     #x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=split_val_size, random_state=73) 
 
-    scaler = pp.StandardScaler()
-
     # Train model - Accuracy Method of NuSVC
     def getNuSVCModelAccuracy(nuValue):
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
-        x_test = scaler.fit_transform(x_test)
+        x_test = scaler.transform(x_test)
         nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.1, kernel='rbf', 
           nu=nuValue, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
@@ -88,8 +86,8 @@ try:
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
-        x_test = scaler.fit_transform(x_test)
-        svc_model = svm.SVC(gamma=0.001,C=10000,kernel="rbf", probability=True)
+        x_test = scaler.transform(x_test)
+        svc_model = svm.SVC(C=1000)
         svc_model.fit(x_train, y_train.ravel()) 
         return svc_model
 
@@ -98,7 +96,7 @@ try:
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
-        x_test = scaler.fit_transform(x_test)
+        x_test = scaler.transform(x_test)
         svc_model = svm.SVC(kernel="linear")
         svc_model.fit(x_train, y_train.ravel()) 
         return svc_model
@@ -108,9 +106,9 @@ try:
         global x_train
         global x_test
         x_train = scaler.fit_transform(x_train)
-        x_test = scaler.fit_transform(x_test)
-        nuSvc_model = svm.NuSVC(coef0=0.0, gamma=0.01, kernel='linear', 
-          nu=0.58, probability=True, random_state=0)
+        x_test = scaler.transform(x_test)
+        nuSvc_model = svm.NuSVC(coef0=0.0, kernel='linear', 
+          nu=0.58, gamma=0.01, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
 

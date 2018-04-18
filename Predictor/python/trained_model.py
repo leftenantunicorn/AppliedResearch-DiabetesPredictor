@@ -24,6 +24,7 @@ try:
     y = df[predicted_class_names].values
 
     fill_0 = pp.Imputer(missing_values=0, strategy="mean", axis=0)
+    fill_insulin = pp.Imputer(missing_values=0, strategy="median", axis=0)
     scaler = pp.StandardScaler()
     
     # Manipulate bad data
@@ -40,16 +41,19 @@ try:
             return input_array * 1
 
     def get_invalid0_cols(df):
-        return df[['num_preg', 'glucose_conc','bmi', 'diab_pred', 'diastolic_bp']]
+        return df[[ 'glucose_conc', 'bmi', 'diab_pred', 'age' ]]
 
     def get_valid0_cols(df):
         return df[['num_preg']]
 
+    def get_insulin_cols(df):
+        return df[['insulin']]
+
     vec = make_union(*[
         make_pipeline(pp.FunctionTransformer(get_valid0_cols, validate=False), IdentityTransformer()),
         make_pipeline(pp.FunctionTransformer(get_invalid0_cols, validate=False), fill_0),
+        make_pipeline(pp.FunctionTransformer(get_insulin_cols, validate=False), fill_insulin),
     ])
-    
     x = vec.fit_transform(df)
 
     # Split data into train and test sets
@@ -105,8 +109,8 @@ try:
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        nuSvc_model = svm.NuSVC(class_weight=None, coef0=0.0, gamma=0.01, kernel='linear', 
-          nu=0.47, probability=True, random_state=0)
+        nuSvc_model = svm.NuSVC(coef0=0.0, gamma=0.01, kernel='linear', 
+          nu=0.58, probability=True, random_state=0)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
 
@@ -117,7 +121,7 @@ try:
         return lr_model
 
 
-    model = getLogisticRegressionModel()
+    model = getNuSVCModel()
 
 except Exception as e:
     print ("Unexpected error:", format(e) )

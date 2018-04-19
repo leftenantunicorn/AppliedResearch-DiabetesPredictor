@@ -229,7 +229,7 @@
                         $("#outcome-img").attr("src", '@Url.Content("~/images/green.png")');
                         $("#desc-big").html("You are at <strong>low</strong> risk.  ");
                         break;
-                    case (probability < 90):
+                    case (probability < 75):
                         $("#outcome-img").attr("src", '@Url.Content("~/images/yellow.png")');
                         $("#desc-big").html("You are at <strong>moderate</strong> risk.  ");
                         break;

@@ -25,7 +25,7 @@ try:
 
     fill_0 = pp.Imputer(missing_values=0, strategy="mean", axis=0)
     fill_insulin = pp.Imputer(missing_values=0, strategy="median", axis=0)
-    scaler = pp.StandardScaler()
+    scaler = pp.MinMaxScaler()
     
     # Manipulate bad data
 
@@ -41,7 +41,7 @@ try:
             return input_array * 1
 
     def get_invalid0_cols(df):
-        return df[[ 'glucose_conc', 'diastolic_bp', 'bmi', 'diab_pred' ]]
+        return df[[ 'glucose_conc', 'bmi', 'diab_pred']]
 
     def get_valid0_cols(df):
         return df[['num_preg']]
@@ -51,13 +51,14 @@ try:
 
     vec = make_union(*[
         make_pipeline(pp.FunctionTransformer(get_valid0_cols, validate=False), IdentityTransformer()),
-        make_pipeline(pp.FunctionTransformer(get_invalid0_cols, validate=False), fill_0)
-        #make_pipeline(pp.FunctionTransformer(get_insulin_cols, validate=False), fill_insulin),
+        make_pipeline(pp.FunctionTransformer(get_invalid0_cols, validate=False), fill_0),
+      #  make_pipeline(pp.FunctionTransformer(get_insulin_cols, validate=False), fill_0)
     ])
+
     x = vec.fit_transform(df)
 
     # Split data into train and test sets
-    split_test_size = 0.20
+    split_test_size = 0.2
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=split_test_size, random_state=73) 
     
     #For manual tuning
@@ -107,8 +108,7 @@ try:
         global x_test
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.transform(x_test)
-        nuSvc_model = svm.NuSVC(coef0=0.0, kernel='linear', 
-          nu=0.58, gamma=0.01, probability=True, random_state=0)
+        nuSvc_model = svm.NuSVC( probability=True, random_state=0, kernel='rbf', gamma=2.2, nu=0.65)
         nuSvc_model.fit(x_train, y_train.ravel()) 
         return nuSvc_model
 

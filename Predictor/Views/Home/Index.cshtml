@@ -175,7 +175,7 @@
                 contentType: "application/json",
                 url: '@Url.Action("model/metrics", "api")',
                 success: function (result) {
-                    alert(JSON.stringify(result));
+                    //alert(JSON.stringify(result));
                     var data = JSON.parse(result);
                     $("#header").html(data['conf']['true_neg'] +
                         data['conf']['true_pos'] +
